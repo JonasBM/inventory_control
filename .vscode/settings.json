@@ -1,0 +1,12 @@
+{
+  "python.pythonPath": "backend/.venv/bin/python3",
+  "python.autoComplete.extraPaths": [
+    "backend/.venv/lib/python3.7/site-packages",
+    "backend/.venv/lib64/python3.7/site-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "backend/.venv/lib/python3.7/site-packages",
+    "backend/.venv/lib64/python3.7/site-packages"
+  ],
+  "python.formatting.provider": "autopep8"
+}
