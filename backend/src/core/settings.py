@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from decimal import Decimal
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     "rest_framework",
     "knox",
     "api",
@@ -67,12 +69,13 @@ REST_FRAMEWORK = {
         "anon": "20/min",
         "user": "600/min",
     },
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 REST_KNOX = {
     "TOKEN_TTL": timedelta(hours=48),
     "AUTO_REFRESH": True,
-    'USER_SERIALIZER': 'api.serializers.UserProfileSerializer',
+    'USER_SERIALIZER': 'django.contrib.auth.models.User',
 }
 
 
@@ -166,3 +169,5 @@ MEDIA_ROOT = "/static/media/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PRICE_THRESHOLD = Decimal(os.environ.get("PRICE_THRESHOLD", "0.90"))
