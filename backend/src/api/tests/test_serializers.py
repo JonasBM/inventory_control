@@ -1,8 +1,9 @@
 from decimal import Decimal
+
 from api import models, serializers
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.conf import settings
 
 
 class ClientSerializerTestCase(TestCase):

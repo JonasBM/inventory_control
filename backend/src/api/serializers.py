@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
-from rest_framework import serializers
-from django.utils.translation import gettext_lazy as _
-from api import models
-from django.db import transaction
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.db import transaction
+from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
+
+from api import models
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-06 21:37-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: serializers.py:98 serializers.py:111 serializers.py:124
+#, python-brace-format
+msgid "Product (pk={product_id}) not found."
+msgstr "Produto (pk={product_id}) não encontrado."
+
+#: serializers.py:102
+#, python-brace-format
+msgid "Quantity must be a multiple of {multiplier}."
+msgstr "Quantidade deve ser multiplo de {multiplier}."
+
+#: serializers.py:115
+#, python-brace-format
+msgid "Quantity must be less than the inventory ({product.remain})."
+msgstr "Quantidade deve ser menor do que o estoque ({product.remain})."
+
+#: serializers.py:128
+msgid "Price must be above {product.unitary_price*settings.PRICE_THRESHOLD}."
+msgstr "Preço deve ser maior que {product.unitary_price*settings.PRICE_THRESHOLD}."
+
+#: views/authviews.py:30
+msgid "Incorrect password."
+msgstr "Senha incorreta."
+
+#: views/authviews.py:38
+msgid "Password updated successfully."
+msgstr "Senha atualizada com sucesso."

@@ -1,6 +1,7 @@
-from rest_framework import permissions, viewsets
 from api import models, serializers
-from api.views.permissions import IsSellerAndOrderIsOpenForOrder, IsSellerAndOrderIsOpenForProductOrder
+from api.views.permissions import (IsSellerAndOrderIsOpenForOrder,
+                                   IsSellerAndOrderIsOpenForProductOrder)
+from rest_framework import permissions, viewsets
 
 
 class ClientViewSet(viewsets.ModelViewSet):
