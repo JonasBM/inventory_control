@@ -2,7 +2,7 @@
 
 ## Process manage for municipal consumer protection body
 
-A Frontend react project, using axios and redux for communication with the api ([Bakcend ReadMe](../backend))
+A Frontend react project, using axios and redux for communication with the api ([Backend ReadMe](../backend))
 
 ## Building the frontend
 
