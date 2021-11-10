@@ -7,10 +7,9 @@ A Frontend react project, using axios and redux for communication with the api (
 ## Building the frontend
 
 Edit the .env file with the backend endpoint url
-This application was build with the backend and frontend in the same domain
 
 ```
-REACT_APP_API_URL = "https://{endpoint}/api"
+REACT_APP_API_URL = "https://{endpoint_api}/"
 ```
 
 Build the application
