@@ -4,7 +4,7 @@
 
 A Backend python project, using django and django rest framework to build the api, connected with a postgresql database.
 
-See the frontend project ([Frontend ReadMe](https://github.com/JonasBM/inventory_control/frontend/README.md))
+See the frontend project ([Frontend ReadMe](frontend/README.md))
 
 ## Running the docker
 

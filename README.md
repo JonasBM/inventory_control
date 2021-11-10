@@ -1,8 +1,8 @@
 # inventory control
 
-[Frontend project](JonasBM/inventory_control/backend/README.md), using axios and redux for communication with the api.
+[Frontend project](backend/README.md), using axios and redux for communication with the api.
 
-[Backend python project](JonasBM/inventory_control/backend/README.md), using django and django rest framework to build the api, connected with a postgresql database.
+[Backend python project](backend/README.md), using django and django rest framework to build the api, connected with a postgresql database.
 
 ## Structure
 
