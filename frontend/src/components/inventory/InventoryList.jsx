@@ -12,7 +12,7 @@ const InventoryList = ({ product_id }) => {
   const product = useAppSelector((state) =>
     state.products.find((el) => el.id.toString() === product_id)
   );
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   return (
     <Table striped bordered hover size="sm" className="px-lg-5">
       <caption
