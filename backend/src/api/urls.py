@@ -1,8 +1,8 @@
 
 from django.urls import include, path
-from django.views.generic import TemplateView
+# from django.views.generic import TemplateView
 from rest_framework import routers
-from rest_framework.schemas import get_schema_view
+# from rest_framework.schemas import get_schema_view
 
 from api.views import authviews, viewsets
 
@@ -21,15 +21,15 @@ urlpatterns = [
          authviews.ChangePasswordView.as_view(), name='changepassword'),
     path("auth/login/", authviews.LoginView.as_view(), name='knox_login'),
     path("auth/", include("knox.urls")),
-    path('', TemplateView.as_view(
-        template_name='swagger-ui.html',
-        extra_context={'schema_url': 'openapi-schema'}
-    ), name='swagger-ui'),
-    path('openapi/', get_schema_view(
-        title="Inventory Control API",
-        description="API for inventory control…",
-        version="0.1.0"
-    ), name='openapi-schema'),
+    # path('', TemplateView.as_view(
+    #     template_name='swagger-ui.html',
+    #     extra_context={'schema_url': 'openapi-schema'}
+    # ), name='swagger-ui'),
+    # path('openapi/', get_schema_view(
+    #     title="Inventory Control API",
+    #     description="API for inventory control…",
+    #     version="0.1.0"
+    # ), name='openapi-schema'),
 ]
 
 

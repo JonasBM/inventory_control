@@ -81,6 +81,7 @@ REST_KNOX = {
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -90,6 +91,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS_ENV = os.environ.get("CORS_ALLOWED_ORIGINS", "*")
+if CORS_ALLOWED_ORIGINS_ENV:
+    CORS_ALLOWED_ORIGINS.extend(CORS_ALLOWED_ORIGINS_ENV.split(","))
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'core.urls'
 
@@ -180,5 +188,3 @@ MEDIA_ROOT = "/static/media/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PRICE_THRESHOLD = Decimal(os.environ.get("PRICE_THRESHOLD", "0.90"))
-
-CORS_ALLOW_ALL_ORIGINS = True
