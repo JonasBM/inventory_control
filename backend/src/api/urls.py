@@ -8,6 +8,8 @@ from api.views import authviews, viewsets
 
 router = routers.DefaultRouter()
 
+router.register(r"user", viewsets.UserViewSet, "user")
+router.register(r"userprofile", viewsets.UserProfileViewSet, "userprofile")
 router.register(r"client", viewsets.ClientViewSet, "client")
 router.register(r"product", viewsets.ProductViewSet, "product")
 router.register(r"inventory", viewsets.InventoryViewSet, "inventory")
@@ -15,8 +17,10 @@ router.register(r"order", viewsets.OrderViewSet, "order")
 router.register(r"productorder", viewsets.ProductOrderViewSet, "productorder")
 
 urlpatterns = [
+    path("auth/changepassword/",
+         authviews.ChangePasswordView.as_view(), name='changepassword'),
+    path("auth/login/", authviews.LoginView.as_view(), name='knox_login'),
     path("auth/", include("knox.urls")),
-    path("auth/changepassword/", authviews.ChangePasswordView.as_view()),
     path('', TemplateView.as_view(
         template_name='swagger-ui.html',
         extra_context={'schema_url': 'openapi-schema'}

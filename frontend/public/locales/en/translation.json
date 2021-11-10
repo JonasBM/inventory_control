@@ -1,0 +1,30 @@
+{
+  "title": "Inventory Control",
+  "HTMLError": {
+    "badInput": "Bad Input",
+    "patternMismatch": "Pattern Mismatch",
+    "rangeOverflow": "Range Overflow",
+    "rangeUnderflow": "Range Underflow",
+    "stepMismatch": "Step Mismatch",
+    "tooLong": "Too Long",
+    "tooShort": "Too Short",
+    "typeMismatch": "Type Mismatch",
+    "valueMissing": "Value Missing"
+  },
+  "HTMLErrorWithValue": {
+    "badInput": "Bad Input",
+    "patternMismatch": "Pattern Mismatch, espected pattern: {{HTML5errorValue}}",
+    "rangeOverflow": "Range Overflow, maximum value: {{HTML5errorValue}}",
+    "rangeUnderflow": "Range Underflow, minimum value: {{HTML5errorValue}}",
+    "stepMismatch": "Step Mismatch, allowed step: {{HTML5errorValue}}",
+    "tooLong": "Too Long, maximum of {{HTML5errorValue}} caracters",
+    "tooShort": "Too Short, minimum of {{HTML5errorValue}} caracters",
+    "typeMismatch": "Type Mismatch",
+    "valueMissing": "Value Missing"
+  },
+  "NotAutorized": {
+    "403error": "403 - Not authorized to access this page",
+    "GoTostart": "Go to initial page",
+    "LoginWith": "Login with another account"
+  }
+}

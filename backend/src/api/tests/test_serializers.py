@@ -97,7 +97,7 @@ class ProductOrderSerializerTestCase(TestCase):
         self.assertEqual(serializer.is_valid(), True)
 
     def test_wrong_inventory(self):
-        """Test wrong inventary for the order"""
+        """Test wrong Inventory for the order"""
         self.serializer_data_not_allow_oversell["quantity"] = 12
         serializer = serializers.ProductOrderSerializer(
             data=self.serializer_data_not_allow_oversell)
@@ -105,14 +105,14 @@ class ProductOrderSerializerTestCase(TestCase):
         self.assertEqual(set(serializer.errors.keys()), set(['quantity']))
 
     def test_correct_inventory(self):
-        """Test correct inventary for the order"""
+        """Test correct Inventory for the order"""
         self.serializer_data_not_allow_oversell["quantity"] = 10
         serializer = serializers.ProductOrderSerializer(
             data=self.serializer_data_not_allow_oversell)
         self.assertEqual(serializer.is_valid(), True)
 
     def test_wrong_inventory_but_allow_oversell(self):
-        """Test wrong inventary for the order, but allowing oversell"""
+        """Test wrong Inventory for the order, but allowing oversell"""
         self.serializer_data_allow_oversell["quantity"] = 12
         serializer = serializers.ProductOrderSerializer(
             data=self.serializer_data_allow_oversell)

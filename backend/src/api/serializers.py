@@ -22,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
-class UserDetailsSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     last_login = serializers.DateTimeField(
         read_only=True, format="%Y-%m-%dT%H:%M")
     date_joined = serializers.DateTimeField(
@@ -53,13 +53,15 @@ class ClientSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = models.Product
-        fields = "__all__"
+        fields = ("id", "name", "image", "unitary_price",
+                  "multiplier", "allow_oversell", "remain")
 
 
 class InventorySerializer(serializers.ModelSerializer):
-    date = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
+    date = serializers.DateTimeField(format="%Y-%m-%dT%H:%M", read_only=True)
 
     class Meta:
         model = models.Inventory
@@ -67,7 +69,7 @@ class InventorySerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    date = serializers.DateTimeField(format="%Y-%m-%dT%H:%M")
+    date = serializers.DateTimeField(format="%Y-%m-%dT%H:%M", read_only=True)
 
     class Meta:
         model = models.Order
@@ -82,11 +84,17 @@ class ProductOrderSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def create(self, validated_data):
-        product = models.Product.objects.get(pk=validated_data["product"])
         rentability = validated_data["unitary_price_sell"] / \
-            product["unitary_price"]
+            validated_data["product"].unitary_price
         validated_data["rentability"] = rentability
-        return models.Product.objects.create(**validated_data)
+        return models.ProductOrder.objects.create(**validated_data)
+
+    @transaction.atomic
+    def update(self, validated_data):
+        rentability = validated_data["unitary_price_sell"] / \
+            validated_data["product"].unitary_price
+        validated_data["rentability"] = rentability
+        return models.ProductOrder.objects.update(**validated_data)
 
     def validate_multiplier(self, data):
         """Check if the quantity is a multiple of the product multiplier"""

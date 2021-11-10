@@ -1,7 +1,10 @@
+
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import F, Sum
 from django.utils import timezone
+from decimal import Decimal
 
 
 class Client(models.Model):
@@ -25,7 +28,11 @@ class Product(models.Model):
     """
     name = models.CharField(max_length=255, unique=True)
     image = models.ImageField(upload_to='images', blank=True)
-    unitary_price = models.DecimalField(max_digits=11, decimal_places=2)
+    unitary_price = models.DecimalField(
+        max_digits=11,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))]
+    )
     multiplier = models.PositiveSmallIntegerField(default=1, blank=True)
     allow_oversell = models.BooleanField(default=True, blank=True)
 
@@ -56,7 +63,7 @@ class Inventory(models.Model):
     date = models.DateTimeField(default=timezone.now, blank=True)
 
     class Meta:
-        ordering = ["date", "product", "id"]
+        ordering = ["-date", "product", "id"]
 
     def __str__(self):
         return (f'{str(self.date)} - {self.product} - {self.quantity}')
@@ -77,7 +84,7 @@ class Order(models.Model):
     opened = models.BooleanField(default=True, blank=True)
 
     class Meta:
-        ordering = ["date", "seller", "client", "id"]
+        ordering = ["-date", "seller", "client", "id"]
 
     def __str__(self):
         return (f'{str(self.date)} - {self.seller}')
@@ -99,10 +106,16 @@ class ProductOrder(models.Model):
         Product, related_name='product_order', on_delete=models.CASCADE)
     order = models.ForeignKey(
         Order, related_name='product_order', on_delete=models.CASCADE)
-    unitary_price_sell = models.DecimalField(max_digits=11, decimal_places=2)
+    unitary_price_sell = models.DecimalField(
+        max_digits=11, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
     quantity = models.PositiveIntegerField()
     rentability = models.DecimalField(
-        max_digits=5, decimal_places=2, blank=True, null=True)
+        max_digits=5,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(Decimal('0.00'))]
+    )
 
     class Meta:
         ordering = ["order", "product", "id"]

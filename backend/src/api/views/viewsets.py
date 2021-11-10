@@ -1,7 +1,105 @@
 from api import models, serializers
 from api.views.permissions import (IsSellerAndOrderIsOpenForOrder,
-                                   IsSellerAndOrderIsOpenForProductOrder)
-from rest_framework import permissions, viewsets
+                                   IsSellerAndOrderIsOpenForProductOrder,
+                                   IsUser)
+from django.contrib.auth.models import User
+from rest_framework import permissions, status, viewsets
+from rest_framework.response import Response
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """
+    CRUD view for User Model
+    Allowed for own user profile or admin for all profiles
+    """
+    permission_classes = [
+        permissions.IsAdminUser | IsUser,
+    ]
+    serializer_class = serializers.UserProfileSerializer
+
+    def get_queryset(self):
+        """
+        Sort User model
+        Remove superuser if the request user is not a superuser
+        """
+        queryset = User.objects.order_by(
+            "first_name",
+            "last_name",
+            "username",
+        )
+        if self.request.user.is_superuser:
+            return queryset.all()
+        elif self.request.user.is_staff:
+            return queryset.filter(is_superuser=False).all()
+        else:
+            return User.objects.filter(id=self.request.user.id).all()
+
+    def create(self, request, *args, **kwargs):
+        """
+        Allow creation just for Admin users
+        """
+        if self.request.user.is_staff:
+            password = None
+            if "password" in request.data.keys():
+                password = request.data.pop("password")
+            response = super(UserProfileViewSet, self).create(
+                request, *args, **kwargs)
+            if password:
+                user = User.objects.filter(id=response.data["id"]).first()
+                if user:
+                    user.set_password(password)
+                    user.save()
+                    return response
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+    def update(self, request, *args, **kwargs):
+        """
+        Allow update of own user, excluding fields: is_superuser, is_staff,
+        is_active, groups, user_permissions and password;
+        Allow update of any user for Admin users
+        """
+        if not self.request.user.is_staff:
+            request.data.pop("is_superuser")
+            request.data.pop("is_staff")
+            request.data.pop("is_active")
+            request.data.pop("groups")
+            request.data.pop("user_permissions")
+        else:
+            password = None
+            if "password" in request.data.keys():
+                password = request.data.pop("password")
+            if password:
+                user = User.objects.filter(id=request.data["id"]).first()
+                if user:
+                    user.set_password(password)
+                    user.save()
+        return super(UserProfileViewSet, self).update(request, *args, **kwargs)
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Retrieve and List view for limited User Model
+    Allowed for authenticated users
+    """
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+    serializer_class = serializers.UserSerializer
+
+    def get_queryset(self):
+        """
+        Remove superuser if the request user is not a superuser
+        """
+        queryset = User.objects.order_by(
+            "first_name",
+            "last_name",
+            "username",
+        )
+        if self.request.user.is_superuser:
+            return queryset.all()
+        else:
+            return queryset.filter(is_superuser=False).all()
 
 
 class ClientViewSet(viewsets.ModelViewSet):
