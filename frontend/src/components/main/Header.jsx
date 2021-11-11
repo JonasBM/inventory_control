@@ -1,5 +1,4 @@
 import {
-  Button,
   ButtonGroup,
   Container,
   Nav,
@@ -7,9 +6,10 @@ import {
   ToggleButton,
 } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { UserRetrieveUpdateAction } from "../../actions/accounts/user";
+import { getConfig } from "../../actions/api/config";
 import i18next from "i18next";
 import moment from "moment";
 import { useAppSelector } from "../../hooks";
@@ -46,6 +46,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(UserRetrieveUpdateAction.list());
+    dispatch(getConfig());
   }, [dispatch]);
 
   return (
@@ -56,10 +57,34 @@ const Header = () => {
       variant="dark"
       className="py-1"
     >
+      <ButtonGroup size="sm" className="ms-2">
+        <ToggleButton
+          type="radio"
+          variant="outline-info"
+          name="radio"
+          checked={i18next.language === "en"}
+          onClick={(e) => {
+            changeLanguage("en");
+          }}
+        >
+          EN
+        </ToggleButton>
+        <ToggleButton
+          type="radio"
+          variant="outline-info"
+          name="radio"
+          checked={i18next.language === "pt-BR"}
+          onClick={() => {
+            changeLanguage("pt-BR");
+          }}
+        >
+          BR
+        </ToggleButton>
+      </ButtonGroup>
       <Navbar.Brand
         as={Link}
         to="/"
-        className="d-inline-flex align-items-center mx-lg-5 ms-2"
+        className="d-inline-flex align-items-center me-lg-5 ms-2"
       >
         {t("Inventory Control")}
       </Navbar.Brand>
@@ -77,34 +102,8 @@ const Header = () => {
             <Nav.Link as={NavLink} to="/order">
               {t("Orders")}
             </Nav.Link>
-            {/* <Nav.Link as={NavLink} to="/admin">
-              {t("Administration")}
-            </Nav.Link> */}
           </Nav>
-          <ButtonGroup size="sm">
-            <ToggleButton
-              type="radio"
-              variant="outline-info"
-              name="radio"
-              checked={i18next.language === "en"}
-              onClick={(e) => {
-                changeLanguage("en");
-              }}
-            >
-              EN
-            </ToggleButton>
-            <ToggleButton
-              type="radio"
-              variant="outline-info"
-              name="radio"
-              checked={i18next.language === "pt-BR"}
-              onClick={() => {
-                changeLanguage("pt-BR");
-              }}
-            >
-              BR
-            </ToggleButton>
-          </ButtonGroup>
+
           {auth.isAuthenticated ? <LogoutButton /> : <LoginButton />}
         </Navbar.Collapse>
       </Container>

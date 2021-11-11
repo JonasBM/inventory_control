@@ -51,7 +51,11 @@ export const destroyProductOrder = (_productorder) => {
     confirm_alert += newLine;
     confirm_alert += "#" + _productorder.id;
     if (window.confirm(confirm_alert)) {
-      store.dispatch(ProductOrderCRUDAction.destroy(_productorder.id));
+      store
+        .dispatch(ProductOrderCRUDAction.destroy(_productorder.id))
+        .then(() => {
+          store.dispatch(ProductCRUDAction.retrieve(_productorder.order));
+        });
       return true;
     }
   }
@@ -66,7 +70,6 @@ export default function ModalFormProductOrder() {
 
   const onSubmit = (values) => {
     let closeModal = false;
-    console.log(values);
     if (values.id !== undefined) {
       if (values.id === 0) {
         dispatch(ProductOrderCRUDAction.create(values));
@@ -113,9 +116,9 @@ export default function ModalFormProductOrder() {
               <Modal.Title>
                 {productorder !== undefined
                   ? productorder.id !== 0
-                    ? t("Edit product") + " " + productorder.id
-                    : t("New product")
-                  : t("New product")}
+                    ? t("Edit product in order") + " #" + productorder.id
+                    : t("New product in order")
+                  : t("New product in order")}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>

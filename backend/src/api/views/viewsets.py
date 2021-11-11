@@ -22,6 +22,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         Sort User model
         Remove superuser if the request user is not a superuser
         """
+
         queryset = User.objects.order_by(
             "first_name",
             "last_name",

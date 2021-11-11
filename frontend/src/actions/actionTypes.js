@@ -12,3 +12,6 @@ export const UPDATE_USERPROFILE = "UPDATE_USERPROFILE";
 
 export const SHOW_MODAL = "SHOW_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
+
+export const GET_CONFIG = "GET_CONFIG";
+export const GET_CONFIG_ERROR = "GET_CONFIG_ERROR";

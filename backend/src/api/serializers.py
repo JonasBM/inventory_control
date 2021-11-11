@@ -73,7 +73,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Order
-        fields = "__all__"
+        fields = ("id", "seller", "client", "products",
+                  "date", "opened", "total")
 
 
 class ProductOrderSerializer(serializers.ModelSerializer):
@@ -87,14 +88,14 @@ class ProductOrderSerializer(serializers.ModelSerializer):
         rentability = validated_data["unitary_price_sell"] / \
             validated_data["product"].unitary_price
         validated_data["rentability"] = rentability
-        return models.ProductOrder.objects.create(**validated_data)
+        return super().create(validated_data)
 
     @transaction.atomic
-    def update(self, validated_data):
+    def update(self, instance, validated_data):
         rentability = validated_data["unitary_price_sell"] / \
             validated_data["product"].unitary_price
         validated_data["rentability"] = rentability
-        return models.ProductOrder.objects.update(**validated_data)
+        return super().update(instance, validated_data)
 
     def validate_multiplier(self, data):
         """Check if the quantity is a multiple of the product multiplier"""

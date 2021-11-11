@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import store from "./store";
 
 export function applyMixins(derivedCtor, baseCtors) {
@@ -11,6 +12,12 @@ export function applyMixins(derivedCtor, baseCtors) {
       }
     }
   }
+}
+
+export function formatCurrency(value) {
+  return Intl.NumberFormat(i18next.language, {
+    minimumFractionDigits: 2,
+  }).format(value);
 }
 
 export function removeAccents(str) {
@@ -27,6 +34,17 @@ export function formatDate(date) {
     ("0" + date.getDate()).slice(-2)
   );
 }
+
+export const getFilteredProducts = (productsInOrder, currentProduct) => {
+  return function (productsInOrder, currentProduct) {
+    store.getState().products.filter((_product) => {
+      if (_product === currentProduct) {
+        return true;
+      }
+      return productsInOrder.indexOf(_product.id) === -1;
+    });
+  };
+};
 
 export function getSellerByID(id) {
   if (id > 0) {

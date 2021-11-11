@@ -18,7 +18,7 @@ const CommonModalFooter = ({
       {canDelete && (
         <Button
           variant="danger"
-          className="me-auto font-weight-bold"
+          className="me-auto fw-bold"
           onClick={onDelete}
           disabled={isDisabled}
         >
@@ -28,7 +28,7 @@ const CommonModalFooter = ({
       {form && (
         <Button
           variant="secondary"
-          className="font-weight-bold"
+          className="fw-bold"
           onClick={() => {
             form.reset();
           }}
@@ -41,7 +41,7 @@ const CommonModalFooter = ({
 
       <Button
         variant="secondary"
-        className="font-weight-bold"
+        className="fw-bold"
         onClick={() => {
           handleClose();
         }}
@@ -51,7 +51,7 @@ const CommonModalFooter = ({
 
       <Button
         variant="primary"
-        className="font-weight-bold"
+        className="fw-bold"
         disabled={isDisabled}
         type="submit"
       >

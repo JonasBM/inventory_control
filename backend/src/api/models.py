@@ -27,7 +27,7 @@ class Product(models.Model):
     Defines the attributes of a product
     """
     name = models.CharField(max_length=255, unique=True)
-    image = models.ImageField(upload_to='images', blank=True)
+    image = models.ImageField(upload_to='images', blank=True, null=True)
     unitary_price = models.DecimalField(
         max_digits=11,
         decimal_places=2,

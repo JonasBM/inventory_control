@@ -1,14 +1,18 @@
-import { Button, Collapse, Fade, Table } from "react-bootstrap";
+import { Button, Collapse, Fade, Image, Table } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
+import {
+  destroyProductOrder,
+  handleShow,
+} from "../modals/ModalFormProductOrder";
 
+import { formatCurrency } from "../../utils";
 import moment from "moment";
 import { useAppSelector } from "../../hooks";
 import { useTranslation } from "react-i18next";
 
-// import { destroyInventory, handleShow } from "../modals/ModalFormInventory";
-
 const InventoryList = ({ order_id }) => {
   const { t } = useTranslation();
+  const config = useAppSelector((state) => state.config);
   const productorders = useAppSelector((state) => state.productorders);
   const order = useAppSelector((state) =>
     state.orders.find((el) => el.id.toString() === order_id)
@@ -31,9 +35,15 @@ const InventoryList = ({ order_id }) => {
 
       <thead>
         <tr>
+          <th className="text-center d-none d-lg-table-cell"></th>
           <th className="text-center">{t("Product")}</th>
-          <th className="text-center">{t("Unitary Price")}</th>
+          <th className="text-center">
+            {t("Unitary Price") + " (" + t("$") + ")"}
+          </th>
           <th className="text-center">{t("Quantity")}</th>
+          <th className="text-center d-none d-lg-table-cell">
+            {t("Total") + " (" + t("$") + ")"}
+          </th>
           <th></th>
         </tr>
       </thead>
@@ -43,16 +53,38 @@ const InventoryList = ({ order_id }) => {
             const product = products.find((e) => e.id === productorder.product);
             return (
               <tr key={productorder.id}>
-                <td>{product.name}</td>
-                <td className="text-end">{productorder.unitary_price_sell}</td>
+                <td className="text-center d-none d-lg-table-cell">
+                  <Image
+                    src={product?.image}
+                    rounded
+                    style={{ width: "50px", maxHeight: "50px" }}
+                    className="m-1"
+                  />
+                </td>
+                <td>{product?.name}</td>
+                <td
+                  className={
+                    "text-end " +
+                    (productorder.rentability < 1
+                      ? "text-warning"
+                      : "text-success")
+                  }
+                >
+                  {formatCurrency(productorder.unitary_price_sell)}
+                </td>
                 <td className="text-end">{productorder.quantity}</td>
+                <td className="text-end d-none d-lg-table-cell">
+                  {formatCurrency(
+                    productorder.quantity * productorder.unitary_price_sell
+                  )}
+                </td>
                 <td style={{ width: "80px" }}>
                   <Button
                     variant="outline-warning"
                     size="sm"
                     className="border-0"
                     onClick={() => {
-                      // handleShow(inventoryEntry);
+                      handleShow(productorder);
                     }}
                     title={t("Edit inventory entry")}
                   >
@@ -64,7 +96,7 @@ const InventoryList = ({ order_id }) => {
                     size="sm"
                     className="border-0"
                     onClick={() => {
-                      // destroyInventory(inventoryEntry);
+                      destroyProductOrder(productorder);
                     }}
                     title={t("Remove inventory entry")}
                   >

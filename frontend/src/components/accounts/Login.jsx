@@ -17,7 +17,7 @@ const Login = () => {
   const onSubmit = (values) => {
     dispatch(authLogin(values)).then((res) => {
       if (res && res.user?.is_active) {
-        history.push("order/");
+        history.push("/order/");
       }
     });
   };

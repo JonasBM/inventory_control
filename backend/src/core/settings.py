@@ -92,10 +92,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = []
-CORS_ALLOWED_ORIGINS_ENV = os.environ.get("CORS_ALLOWED_ORIGINS", "*")
-if CORS_ALLOWED_ORIGINS_ENV:
-    CORS_ALLOWED_ORIGINS.extend(CORS_ALLOWED_ORIGINS_ENV.split(","))
+# CORS_ALLOWED_ORIGINS = []
+# CORS_ALLOWED_ORIGINS_ENV = os.environ.get("CORS_ALLOWED_ORIGINS", "*")
+# if CORS_ALLOWED_ORIGINS_ENV:
+#     CORS_ALLOWED_ORIGINS.extend(CORS_ALLOWED_ORIGINS_ENV.split(","))
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -178,13 +178,15 @@ USE_TZ = True
 STATIC_URL = "api/static/static/"
 MEDIA_URL = "api/static/media/"
 
-STATIC_ROOT = "/static/static/"
-MEDIA_ROOT = "/static/media/"
+STATIC_ROOT = "static/static/"
+MEDIA_ROOT = "static/media/"
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 PRICE_THRESHOLD = Decimal(os.environ.get("PRICE_THRESHOLD", "0.90"))

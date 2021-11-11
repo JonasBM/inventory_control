@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 
 import { CheckboxForm } from "../../common/forms/Checkbox";
 import { InputForm } from "../../common/forms/Input";
+import { InputImagePreview } from "../../common/forms/FileInput";
 import { Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
@@ -9,6 +10,15 @@ const FormProduct = () => {
   const { t } = useTranslation();
   return (
     <Fragment>
+      <Row className="mb-2">
+        <InputImagePreview
+          name="image"
+          label={t("Image") + ":"}
+          size="sm"
+          classNameLabel="mb-0"
+        />
+      </Row>
+
       <Row className="mb-2">
         <InputForm
           name="name"
@@ -40,7 +50,7 @@ const FormProduct = () => {
           name="multiplier"
           size="sm"
           classNameLabel="mb-0"
-          label={t("Lot Size") + ":"}
+          label={t("Stack Size") + ":"}
           placeholder={t("0")}
         />
       </Row>

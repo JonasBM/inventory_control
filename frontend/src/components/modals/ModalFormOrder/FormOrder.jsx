@@ -5,13 +5,6 @@ import { SelectForm } from "../../common/forms/Select";
 import { useAppSelector } from "../../../hooks";
 import { useTranslation } from "react-i18next";
 
-// seller
-// client
-// products
-// date
-// opened
-// total
-
 const FormOrder = () => {
   const { t } = useTranslation();
   const sellers = useAppSelector((state) => state.sellers);
@@ -26,6 +19,7 @@ const FormOrder = () => {
           classNameLabel="mb-0"
           label={t("Seller") + ":"}
           placeholder={t("Seller")}
+          required
         >
           <option value="">---------</option>
           {sellers.map((seller, index) => (
@@ -43,6 +37,7 @@ const FormOrder = () => {
           classNameLabel="mb-0"
           label={t("Client") + ":"}
           placeholder={t("Client")}
+          required
         >
           <option value="">---------</option>
           {clients.map((client, index) => (

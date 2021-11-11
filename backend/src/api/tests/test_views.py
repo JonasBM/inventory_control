@@ -5,6 +5,17 @@ from django.test import TestCase
 from knox.models import AuthToken
 from rest_framework import status
 from rest_framework.test import APIClient
+from . import factory
+
+
+def authenticated_client(user=None):
+    if not user:
+        user = factory.SellerFactory.create(is_staff=True)
+    # Get token to access through knox
+    instance, token = AuthToken.objects.create(user)
+    client = APIClient()
+    client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+    return client
 
 
 class ChangePasswordViewTestCase(TestCase):
@@ -12,17 +23,14 @@ class ChangePasswordViewTestCase(TestCase):
 
     def setUp(self):
         """Create user and token for test"""
-        self.user = User.objects.create_user(
-            "test_user", email=None, password="oldpassword")
-        # Get token to access through knox
-        instance, token = AuthToken.objects.create(self.user)
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        self.user = factory.SellerFactory.create(
+            password="oldpassword", is_staff=True)
+        self.authenticated_client = authenticated_client(self.user)
 
     def test_incorrectpassword(self):
         """Test worng password on password change"""
-        response = self.client.patch(
-            '/auth/changepassword/',
+        response = self.authenticated_client.patch(
+            '/api/auth/changepassword/',
             {'old_password': 'incorrectpassword',
              'new_password': 'newpassword'},
             format='json'
@@ -31,14 +39,14 @@ class ChangePasswordViewTestCase(TestCase):
 
     def test_badrequest(self):
         """Test badrequest on password change"""
-        response = self.client.patch(
-            '/auth/changepassword/',
+        response = self.authenticated_client.patch(
+            '/api/auth/changepassword/',
             {'new_password': 'newpassword'},
             format='json'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        response = self.client.patch(
-            '/auth/changepassword/',
+        response = self.authenticated_client.patch(
+            '/api/auth/changepassword/',
             {'old_password': 'oldpassword'},
             format='json'
         )
@@ -46,21 +54,21 @@ class ChangePasswordViewTestCase(TestCase):
 
     def test_changepassword(self):
         """Test change password"""
-        self.assertEqual(self.client.login(username='test_user',
+        self.assertEqual(self.authenticated_client.login(username=self.user.username,
                          password='oldpassword'), True)
-        self.assertEqual(self.client.login(username='test_user',
+        self.assertEqual(self.authenticated_client.login(username=self.user.username,
                          password='newpassword'), False)
 
-        response = self.client.patch(
-            '/auth/changepassword/',
+        response = self.authenticated_client.patch(
+            '/api/auth/changepassword/',
             {'old_password': 'oldpassword', 'new_password': 'newpassword'},
             format='json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        self.assertEqual(self.client.login(username='test_user',
+        self.assertEqual(self.authenticated_client.login(username=self.user.username,
                          password='oldpassword'), False)
-        self.assertEqual(self.client.login(username='test_user',
+        self.assertEqual(self.authenticated_client.login(username=self.user.username,
                          password='newpassword'), True)
 
 
@@ -68,22 +76,32 @@ class ClientViewSetTestCase(TestCase):
     """Test module for ClientViewSet view"""
 
     def setUp(self):
-        """Create user, token and clients for test"""
-        self.user = User.objects.create_user(
-            "test_user", email=None, password="oldpassword")
-        # Get token to access through knox
-        instance, token = AuthToken.objects.create(self.user)
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        """Create clients for test"""
+        self.authenticated_client = authenticated_client()
+        self.clients = factory.ClientFactory.create_batch(2)
 
-        models.Client.objects.create(name='Darth Vader')
-        models.Client.objects.create(name='Obi-Wan Kenobi')
+    def test_retrieve(self):
+        """Test get objetc from viewset"""
+        response = self.authenticated_client.get(
+            '/api/client/'+str(self.clients[0].id)+'/',
+            format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_list(self):
+        """Test get list from viewset"""
+        response = self.authenticated_client.get(
+            '/api/client/',
+            format='json'
+        )
+        self.assertEqual(len(response.data), 2)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_filter_list(self):
         """Test filter in get list from viewset"""
-        response = self.client.get(
-            '/client/',
-            {'name': 'Dart'},
+        response = self.authenticated_client.get(
+            '/api/client/',
+            {'name': self.clients[0].name},
             format='json'
         )
         self.assertEqual(len(response.data), 1)
@@ -94,23 +112,32 @@ class ProductViewSetTestCase(TestCase):
     """Test module for ProductViewSet view"""
 
     def setUp(self):
-        """Create user, token and products for test"""
-        self.user = User.objects.create_user(
-            "test_user", email=None, password="oldpassword")
-        # Get token to access through knox
-        instance, token = AuthToken.objects.create(self.user)
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        """Create products for test"""
+        self.authenticated_client = authenticated_client()
+        self.products = factory.ProducFactory.create_batch(2)
 
-        models.Product.objects.create(
-            name='Millenium Falcon', unitary_price=1501.25)
-        models.Product.objects.create(name='X-Wing', unitary_price=32.00)
+    def test_retrieve(self):
+        """Test get objetc from viewset"""
+        response = self.authenticated_client.get(
+            '/api/product/'+str(self.products[0].id)+'/',
+            format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_list(self):
+        """Test get list from viewset"""
+        response = self.authenticated_client.get(
+            '/api/product/',
+            format='json'
+        )
+        self.assertEqual(len(response.data), 2)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_filter_list(self):
         """Test filter in get list from viewset"""
-        response = self.client.get(
-            '/product/',
-            {'name': 'Falco'},
+        response = self.authenticated_client.get(
+            '/api/product/',
+            {'name': self.products[0].name},
             format='json'
         )
         self.assertEqual(len(response.data), 1)
@@ -121,30 +148,39 @@ class InventoryViewSetTestCase(TestCase):
     """Test module for InventoryViewSet view"""
 
     def setUp(self):
-        """Create user, token, products and inventory for test"""
-        self.user = User.objects.create_user(
-            "test_user", email=None, password="oldpassword")
-        # Get token to access through knox
-        instance, token = AuthToken.objects.create(self.user)
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        """Create inventory for test"""
 
-        self.product_millenium = models.Product.objects.create(
-            name='Millenium Falcon', unitary_price=1501.25)
-        product_wing = models.Product.objects.create(
-            name='X-Wing', unitary_price=32.00)
-        models.Inventory.objects.create(
-            product=self.product_millenium, quantity=10)
-        models.Inventory.objects.create(
-            product=self.product_millenium, quantity=10)
-        models.Inventory.objects.create(
-            product=product_wing, quantity=10)
+        self.authenticated_client = authenticated_client()
+        self.products = factory.ProducFactory.create_batch(2)
+        self.inventoryEntries0 = factory.InventoryFactory.create_batch(
+            2, product=self.products[0]
+        )
+        self.inventoryEntries1 = factory.InventoryFactory.create_batch(
+            2, product=self.products[1]
+        )
+
+    def test_retrieve(self):
+        """Test get objetc from viewset"""
+        response = self.authenticated_client.get(
+            '/api/inventory/'+str(self.inventoryEntries0[0].id)+'/',
+            format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_list(self):
+        """Test get list from viewset"""
+        response = self.authenticated_client.get(
+            '/api/inventory/',
+            format='json'
+        )
+        self.assertEqual(len(response.data), 4)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_filter_list(self):
         """Test filter in get list from viewset"""
-        response = self.client.get(
-            '/inventory/',
-            {'product_id': self.product_millenium.id},
+        response = self.authenticated_client.get(
+            '/api/inventory/',
+            {'product_id': self.products[0].id},
             format='json'
         )
         self.assertEqual(len(response.data), 2)
@@ -155,34 +191,50 @@ class OrderViewSetTestCase(TestCase):
     """Test module for OrderViewSet view"""
 
     def setUp(self):
-        """Create user, token, products and orders for test"""
-        self.user = User.objects.create_user(
-            "test_user", email=None, password="oldpassword")
-        # Get token to access through knox
-        instance, token = AuthToken.objects.create(self.user)
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        """Create orders for test"""
+        self.authenticated_client = authenticated_client()
+        self.products = factory.ProducFactory.create_batch(2)
+        self.clients = factory.ClientFactory.create_batch(2)
+        self.sellers = factory.SellerFactory.create_batch(2)
 
-        self.seller = self.user
-        self.client_vader = models.Client.objects.create(name='Darth Vader')
-        client_kenobi = models.Client.objects.create(name='Obi-Wan Kenobi')
-        self.product_millenium = models.Product.objects.create(
-            name='Millenium Falcon', unitary_price=1501.25)
-        order1 = models.Order.objects.create(
-            seller=self.seller, client=self.client_vader)
-        order2 = models.Order.objects.create(
-            seller=self.seller, client=client_kenobi)
-        models.ProductOrder.objects.create(
-            product=self.product_millenium, order=order1, unitary_price_sell=10.00, quantity=10)
-        models.ProductOrder.objects.create(
-            product=self.product_millenium, order=order2, unitary_price_sell=10.00, quantity=10)
+        self.orders0 = factory.OrderFactory.create_batch(
+            2, seller=self.sellers[0], client=self.clients[0]
+        )
+        self.orders1 = factory.OrderFactory.create_batch(
+            2, seller=self.sellers[1], client=self.clients[1]
+        )
+
+        self.productorders = factory.ProductOrderFactory.create(
+            order=self.orders0[0], product=self.products[0]
+        )
+
+        self.productorders = factory.ProductOrderFactory.create(
+            order=self.orders0[0], product=self.products[1]
+        )
+
+    def test_retrieve(self):
+        """Test get objetc from viewset"""
+        response = self.authenticated_client.get(
+            '/api/order/'+str(self.orders0[0].id)+'/',
+            format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_list(self):
+        """Test get list from viewset"""
+        response = self.authenticated_client.get(
+            '/api/order/',
+            format='json'
+        )
+        self.assertEqual(len(response.data), 4)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_filter_list(self):
         """Test filter in get list from viewset"""
-        response = self.client.get(
-            '/order/',
-            {'seller_id': self.seller.id, 'client_id': self.client_vader.id,
-                'product_id': self.product_millenium.id},
+        response = self.authenticated_client.get(
+            '/api/order/',
+            {'seller_id': self.sellers[0].id, 'client_id': self.clients[0].id,
+                'product_id': self.products[0].id},
             format='json'
         )
         self.assertEqual(len(response.data), 1)
@@ -193,34 +245,50 @@ class ProductOrderViewSetTestCase(TestCase):
     """Test module for ProductOrderViewSet view"""
 
     def setUp(self):
-        """Create user, token, products, orders and productorder relationship for test"""
-        self.user = User.objects.create_user(
-            "test_user", email=None, password="oldpassword")
-        # Get token to access through knox
-        instance, token = AuthToken.objects.create(self.user)
-        self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        """Create products, orders and productorder relationship for test"""
+        self.authenticated_client = authenticated_client()
+        self.products = factory.ProducFactory.create_batch(2)
+        self.clients = factory.ClientFactory.create_batch(2)
+        self.sellers = factory.SellerFactory.create_batch(2)
 
-        self.seller = self.user
-        self.client_vader = models.Client.objects.create(name='Darth Vader')
-        client_kenobi = models.Client.objects.create(name='Obi-Wan Kenobi')
-        self.product_millenium = models.Product.objects.create(
-            name='Millenium Falcon', unitary_price=1501.25)
-        self.order1 = models.Order.objects.create(
-            seller=self.seller, client=self.client_vader)
-        order2 = models.Order.objects.create(
-            seller=self.seller, client=client_kenobi)
-        models.ProductOrder.objects.create(
-            product=self.product_millenium, order=self.order1, unitary_price_sell=10.00, quantity=10)
-        models.ProductOrder.objects.create(
-            product=self.product_millenium, order=order2, unitary_price_sell=10.00, quantity=10)
+        self.orders0 = factory.OrderFactory.create_batch(
+            2, seller=self.sellers[0], client=self.clients[0]
+        )
+        self.orders1 = factory.OrderFactory.create_batch(
+            2, seller=self.sellers[1], client=self.clients[1]
+        )
+
+        self.productorders0 = factory.ProductOrderFactory.create(
+            order=self.orders0[0], product=self.products[0]
+        )
+
+        self.productorders1 = factory.ProductOrderFactory.create(
+            order=self.orders0[0], product=self.products[1]
+        )
+
+    def test_retrieve(self):
+        """Test get objetc from viewset"""
+        response = self.authenticated_client.get(
+            '/api/productorder/'+str(self.productorders0[0].id)+'/',
+            format='json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_list(self):
+        """Test get list from viewset"""
+        response = self.authenticated_client.get(
+            '/api/productorder/',
+            format='json'
+        )
+        self.assertEqual(len(response.data), 2)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_filter_list(self):
         """Test filter in get list from viewset"""
-        response = self.client.get(
-            '/productorder/',
-            {'order_id': self.order1.id,
-                'product_id': self.product_millenium.id},
+        response = self.authenticated_client.get(
+            '/api/productorder/',
+            {'order_id': self.orders0[0].id,
+                'product_id': self.products[0].id},
             format='json'
         )
         self.assertEqual(len(response.data), 1)

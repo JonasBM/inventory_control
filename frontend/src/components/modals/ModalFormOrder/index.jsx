@@ -12,11 +12,14 @@ import i18next from "i18next";
 import store from "../../../store";
 import { useAppSelector } from "../../../hooks";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const modalType = "MODAL_ORDER";
 
-export const handleShow = (_modalProps = { id: 0, seller: "", client: "" }) => {
+export const handleShow = (
+  _modalProps = { id: 0, seller: "", client: "", opened: true }
+) => {
   store.dispatch({
     type: SHOW_MODAL,
     modalType: modalType,
@@ -52,16 +55,18 @@ export const destroyOrder = (_order) => {
 
 export default function ModalFormOrder() {
   const { t } = useTranslation();
+  const history = useHistory();
   const dispatch = useDispatch();
   const order = useAppSelector((state) => state.modal.modalProps);
   const type = useAppSelector((state) => state.modal.modalType);
 
   const onSubmit = (values) => {
     let closeModal = false;
-    console.log(values);
     if (values.id !== undefined) {
       if (values.id === 0) {
-        dispatch(OrderCRUDAction.create(values));
+        dispatch(OrderCRUDAction.create(values)).then((res) => {
+          history.push("/order/" + res.id);
+        });
         closeModal = true;
       } else {
         dispatch(OrderCRUDAction.update(values));

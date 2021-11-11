@@ -39,7 +39,7 @@ class ProductSerializerTestCase(TestCase):
         serializer = serializers.ProductSerializer(data=self.serializer_data)
         self.assertEqual(serializer.is_valid(), True)
         self.assertEqual(set(serializer.data.keys()), set(
-            ['name', 'unitary_price', 'multiplier', 'allow_oversell']))
+            ['name', 'unitary_price', 'multiplier', 'allow_oversell', "image"]))
 
 
 class ProductOrderSerializerTestCase(TestCase):

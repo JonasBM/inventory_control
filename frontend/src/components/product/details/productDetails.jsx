@@ -20,7 +20,9 @@ const ProductDetails = ({ product_id }) => {
   );
 
   const onSubmit = (values) => {
-    delete values.image;
+    if (typeof values.image === "string" && values.image !== "") {
+      delete values.image;
+    }
     if (values.id !== undefined) {
       if (values.id === 0) {
         dispatch(ProductCRUDAction.create(values));
@@ -56,7 +58,7 @@ const ProductDetails = ({ product_id }) => {
           <Col>
             <Button
               variant="primary"
-              className="font-weight-bold float-end"
+              className="fw-bold float-end"
               size="sm"
               onClick={() => {
                 history.goBack();
@@ -92,7 +94,7 @@ const ProductDetails = ({ product_id }) => {
               <div className="text-center">
                 <Button
                   variant="primary"
-                  className="font-weight-bold"
+                  className="fw-bold"
                   type="submit"
                   disabled={submitting || pristine}
                 >
@@ -102,7 +104,7 @@ const ProductDetails = ({ product_id }) => {
                 {form && (
                   <Button
                     variant="secondary"
-                    className="font-weight-bold ms-1"
+                    className="fw-bold ms-1"
                     onClick={() => {
                       form.reset();
                     }}
@@ -115,7 +117,7 @@ const ProductDetails = ({ product_id }) => {
                 {form && product && product.id !== 0 ? (
                   <Button
                     variant="danger"
-                    className="font-weight-bold ms-5"
+                    className="fw-bold ms-5"
                     onClick={onDelete}
                   >
                     {t("Remove")}

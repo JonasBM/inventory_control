@@ -54,7 +54,9 @@ export default function ModalFormProduct() {
 
   const onSubmit = (values) => {
     let closeModal = false;
-    delete values.image;
+    if (typeof values.image === "string" && values.image !== "") {
+      delete values.image;
+    }
     if (values.id !== undefined) {
       if (values.id === 0) {
         dispatch(ProductCRUDAction.create(values));

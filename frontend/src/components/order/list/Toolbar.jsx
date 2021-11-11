@@ -17,7 +17,12 @@ const Toolbar = ({ bindFilter, resetFilter }) => {
           size="sm"
           className="m-2"
           onClick={() => {
-            handleShow({ id: 0, seller: authUser.id, client: "" });
+            handleShow({
+              id: 0,
+              seller: authUser.id,
+              client: "",
+              opened: true,
+            });
           }}
           title={t("New order")}
         >

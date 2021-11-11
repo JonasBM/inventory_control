@@ -1,5 +1,6 @@
 import { Col, Row } from "react-bootstrap";
 
+import { ProductCRUDAction } from "../../actions/api/product";
 import { ProductOrderCRUDAction } from "../../actions/api/productorder";
 import ProductOrderList from "./ProductOrderList";
 import React from "react";
@@ -9,6 +10,7 @@ import { useEffect } from "react";
 
 export const updateList = (order_id) => {
   store.dispatch(ProductOrderCRUDAction.list({ order_id: order_id }));
+  store.dispatch(ProductCRUDAction.list());
 };
 
 const List = ({ order_id }) => {

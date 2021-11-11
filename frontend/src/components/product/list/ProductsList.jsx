@@ -1,9 +1,9 @@
-import { Button, Table } from "react-bootstrap";
+import { Button, Image, Table } from "react-bootstrap";
 import { destroyProduct, handleShow } from "../../modals/ModalFormProduct";
+import { formatCurrency, removeAccents } from "../../../utils";
 
 import React from "react";
 import { handleShow as handleShowInventory } from "../../modals/ModalFormInventory";
-import { removeAccents } from "../../../utils";
 import { useAppSelector } from "../../../hooks";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -22,15 +22,16 @@ const ProductsList = ({ filter }) => {
       <thead>
         <tr>
           <th className="text-center"></th>
+          <th className="text-center d-none d-lg-table-cell"></th>
           <th className="text-center">{t("Name")}</th>
-          <th className="text-center">{t("Unitary Price")}</th>
+          <th className="text-center">{t("Unitary Price (" + t("$") + ")")}</th>
           <th className="text-center d-none d-lg-table-cell">
-            {t("Lot Size")}
+            {t("Stack Size")}
           </th>
           <th className="text-center d-none d-lg-table-cell">
             {t("Inventory")}
           </th>
-          <th></th>
+          <th className="text-center"></th>
         </tr>
       </thead>
       <tbody>
@@ -48,15 +49,25 @@ const ProductsList = ({ filter }) => {
                     variant="primary"
                     size="sm"
                     onClick={() => {
-                      history.push("product/" + product.id);
+                      history.push("/product/" + product.id);
                     }}
                     title={t("See details")}
                   >
                     <i className="bi bi-three-dots"></i>
                   </Button>
                 </td>
+                <td className="text-center d-none d-lg-table-cell">
+                  <Image
+                    src={product.image}
+                    rounded
+                    style={{ width: "50px", maxHeight: "50px" }}
+                    className="m-1"
+                  />
+                </td>
                 <td>{product.name}</td>
-                <td className="text-end">{product.unitary_price}</td>
+                <td className="text-end">
+                  {formatCurrency(product.unitary_price)}
+                </td>
                 <td className="text-end d-none d-lg-table-cell">
                   {product.multiplier}
                 </td>

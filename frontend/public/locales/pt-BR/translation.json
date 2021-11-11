@@ -1,5 +1,6 @@
 {
   "Inventory Control": "Controle de Estoque",
+  "$": "R$",
 
   "Administration": "Administração",
   "Password": "Senha",
@@ -18,6 +19,16 @@
   "Remain": "Restante",
   "Seller": "Vendedor",
   "Client": "Cliente",
+  "Image": "Imagem",
+  "Remove image": "Deletar imagem",
+  "No image to preview": "Sem imagem para preview",
+  "Rentability": "Rentabilidade",
+  "Bad": "Ruim",
+  "Good": "Boa",
+  "Excelent": "Ótima",
+  "Suggested price": "Preço sugerido",
+  "Close order": "Fechar pedido",
+  "Reopen order": "Reabrir pedido",
 
   "Clients": "Clientes",
   "Client Name": "Nome do Cliente",
@@ -38,8 +49,10 @@
   "New product": "Novo produto",
   "Filter product": "Filtrar produto",
   "Unitary Price": "Preço Unitário",
-  "Lot Size": "Tamanho do lote",
+  "Stack Size": "Tamanho do lote",
   "Allow Oversell": "Permitir vender além do estoque",
+  "minimum value": "valor mínimo",
+  "stack": "Lote",
 
   "Inventory": "Estoque",
   "Remove inventory entry": "Deletar entrada do estoque",
@@ -58,11 +71,19 @@
   "Filter order": "Filtrar pedido",
   "Edit order": "Editar pedido",
   "Are you sure you would like to remove this order?": "Tem certeza que gostaria de deletar este pedido?",
+  "Are you sure you would like to close this order?": "Tem certeza que gostaria de fechar este pedido?",
+  "Only the administrator can reopen orders": "Apenas administradores poderm reabrir pedidos",
+  "Are you sure you would like to reopen this order?": "Tem certeza que gostaria de reabrir este pedido?",
 
   "Add product to order": "Adicionar produto à ordem",
   "Add Product": "Adicionar Produto",
   "Products in Order": "Produtos no pedido",
   "Are you sure you would like to remove this product from the order?": "Tem certeza que gostaria de remover este produto do pedido?",
+  "Missing product and price to calculate rentability": "Faltam produto e preço para calcular a rentabilidade",
+  "Edit product in order": "Editar produto no pedido",
+  "New product in order": "Novo produto no pedido",
+  "This product cannot be over sell": "Este produto não pode ser vendido em excesso",
+  "There is no inventory to sell": "Não há estoque para vender",
 
   "HTMLError": {
     "badInput": "Campo inválido",

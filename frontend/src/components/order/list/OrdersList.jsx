@@ -1,6 +1,11 @@
 import { Button, Table } from "react-bootstrap";
 import { destroyOrder, handleShow } from "../../modals/ModalFormOrder";
-import { getClientByID, getSellerByID } from "../../../utils";
+import {
+  formatCurrency,
+  getClientByID,
+  getSellerByID,
+  removeAccents,
+} from "../../../utils";
 
 import React from "react";
 import moment from "moment";
@@ -14,6 +19,7 @@ const OrdersList = ({ filter, openOrders }) => {
   const sellers = useAppSelector((state) => state.sellers);
   const clients = useAppSelector((state) => state.clients);
   const cleanFilter = filter.toString();
+  const cleanerFilter = removeAccents(cleanFilter.toLowerCase());
   const history = useHistory();
 
   let title = t("Orders List");
@@ -38,7 +44,7 @@ const OrdersList = ({ filter, openOrders }) => {
           <th className="text-center">{t("Seller")}</th>
           <th className="text-center">{t("Client")}</th>
           <th className="text-center">{t("Date")}</th>
-          <th className="text-center">{"Total"}</th>
+          <th className="text-center">{t("Total")}</th>
           <th></th>
         </tr>
       </thead>
@@ -47,7 +53,18 @@ const OrdersList = ({ filter, openOrders }) => {
           orders
             .filter(filterOrders)
             .filter((order) => {
-              return order.id.toString().includes(cleanFilter);
+              const seller = sellers.find((e) => e.id === order.seller);
+              const client = clients.find((e) => e.id === order.client);
+              return (
+                order.id.toString().includes(cleanFilter) |
+                removeAccents(seller.first_name.toLowerCase()).includes(
+                  cleanerFilter
+                ) |
+                removeAccents(seller.last_name.toLowerCase()).includes(
+                  cleanerFilter
+                ) |
+                removeAccents(client.name.toLowerCase()).includes(cleanerFilter)
+              );
             })
             .map((order, index) => {
               const seller = sellers.find((e) => e.id === order.seller);
@@ -59,7 +76,7 @@ const OrdersList = ({ filter, openOrders }) => {
                       variant="primary"
                       size="sm"
                       onClick={() => {
-                        history.push("order/" + order.id);
+                        history.push("/order/" + order.id);
                       }}
                       title={t("See details")}
                     >
@@ -79,7 +96,7 @@ const OrdersList = ({ filter, openOrders }) => {
                         " " +
                         moment(order.date).format("HH:MM")}
                   </td>
-                  <td className="text-end">{order.total}</td>
+                  <td className="text-end">{formatCurrency(order.total)}</td>
                   <td style={{ width: "80px" }}>
                     <Button
                       variant="outline-warning"

@@ -28,10 +28,11 @@ import Product from "./components/product";
 import { Provider } from "react-redux";
 import React from "react";
 import { createBrowserHistory } from "history";
+import i18next from "i18next";
 import store from "./store";
 
 //moment.locale("pt-br");
-moment.locale("en");
+moment.locale(i18next.language);
 
 function App() {
   const history = createBrowserHistory();
@@ -48,13 +49,13 @@ function App() {
     <Provider store={store}>
       <React.Suspense fallback={<Loading />}>
         <AlertProvider template={AlertTemplate} {...alertOptions}>
-          <Alerts />
-          <ModalFormClient />
-          <ModalFormProduct />
-          <ModalFormInventory />
-          <ModalFormOrder />
-          <ModalFormProductOrder />
           <Router history={history}>
+            <Alerts />
+            <ModalFormClient />
+            <ModalFormProduct />
+            <ModalFormInventory />
+            <ModalFormOrder />
+            <ModalFormProductOrder />
             <Header />
             <main role="main">
               <Switch>

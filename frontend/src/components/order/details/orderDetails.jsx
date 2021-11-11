@@ -1,10 +1,15 @@
 import { Button, Col, Row } from "react-bootstrap";
+import {
+  CheckboxForm,
+  CheckboxToogleButton,
+} from "../../common/forms/Checkbox";
+import { Form, useFormState } from "react-final-form";
 import React, { useEffect, useState } from "react";
 
-import { Form } from "react-final-form";
 import FormOrder from "../../modals/ModalFormOrder/FormOrder";
 import { OrderCRUDAction } from "../../../actions/api/order";
 import { destroyOrder } from "../../modals/ModalFormOrder";
+import { formatCurrency } from "../../../utils";
 import { useAppSelector } from "../../../hooks";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -35,17 +40,63 @@ const ProductDetails = ({ order_id }) => {
     }
   };
 
+  const closeOrder = () => {
+    if (order !== undefined && order.id !== undefined) {
+      if (order.opened) {
+        let newLine = "\r\n";
+        let confirm_alert = t(
+          "Are you sure you would like to close this order?"
+        );
+        confirm_alert += newLine;
+        confirm_alert += t("Only the administrator can reopen orders");
+        confirm_alert += newLine;
+        confirm_alert += "#" + order.id;
+        if (window.confirm(confirm_alert)) {
+          dispatch(
+            OrderCRUDAction.update({ ...order, opened: !order.opened })
+          ).then(() => {
+            history.push("/order/");
+          });
+          return true;
+        }
+      } else {
+        let newLine = "\r\n";
+        let confirm_alert = t(
+          "Are you sure you would like to reopen this order?"
+        );
+        confirm_alert += newLine;
+        confirm_alert += "#" + order.id;
+        if (window.confirm(confirm_alert)) {
+          dispatch(OrderCRUDAction.update({ ...order, opened: !order.opened }));
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
   return (
     <Row className="justify-content-md-center">
       <Col xs lg="10" className="p-3 border border-1 border-dark">
         <Row>
           <Col sm="auto">
-            <h5>{order && t("Edit order") + " #" + order.id}</h5>
+            <h5>
+              {order &&
+                t("Edit order") +
+                  " #" +
+                  order.id +
+                  " (" +
+                  t("Total") +
+                  " = " +
+                  t("$") +
+                  formatCurrency(order.total) +
+                  ")"}
+            </h5>
           </Col>
           <Col>
             <Button
               variant="primary"
-              className="font-weight-bold float-end"
+              className="fw-bold float-end"
               size="sm"
               onClick={() => {
                 history.goBack();
@@ -79,13 +130,9 @@ const ProductDetails = ({ order_id }) => {
             >
               <FormOrder />
               <div className="text-center">
-                <Button variant="warning" className="font-weight-bold me-3">
-                  {t("Close order")}
-                </Button>
-
                 <Button
                   variant="primary"
-                  className="font-weight-bold"
+                  className="fw-bold"
                   type="submit"
                   disabled={submitting || pristine}
                 >
@@ -95,7 +142,7 @@ const ProductDetails = ({ order_id }) => {
                 {form && (
                   <Button
                     variant="secondary"
-                    className="font-weight-bold ms-1"
+                    className="fw-bold ms-1"
                     onClick={() => {
                       form.reset();
                     }}
@@ -108,7 +155,7 @@ const ProductDetails = ({ order_id }) => {
                 {form && order && order.id !== 0 ? (
                   <Button
                     variant="danger"
-                    className="font-weight-bold ms-5"
+                    className="fw-bold ms-5"
                     onClick={onDelete}
                   >
                     {t("Remove")}
@@ -116,6 +163,17 @@ const ProductDetails = ({ order_id }) => {
                 ) : (
                   ""
                 )}
+
+                <Button
+                  variant={order?.opened ? "warning" : "success"}
+                  className="fw-bold ms-5"
+                  size="sm"
+                  onClick={() => {
+                    closeOrder();
+                  }}
+                >
+                  {order?.opened ? t("Close order") : t("Reopen order")}
+                </Button>
               </div>
             </form>
           )}
