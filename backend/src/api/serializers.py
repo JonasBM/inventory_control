@@ -92,49 +92,87 @@ class ProductOrderSerializer(serializers.ModelSerializer):
 
     @transaction.atomic
     def update(self, instance, validated_data):
-        rentability = validated_data["unitary_price_sell"] / \
-            validated_data["product"].unitary_price
-        validated_data["rentability"] = rentability
+        recalculate_rentability = False
+
+        if ("unitary_price_sell" in validated_data.keys()):
+            unitary_price_sell = validated_data["unitary_price_sell"]
+            recalculate_rentability = True
+        else:
+            unitary_price_sell = instance.unitary_price_sell
+
+        if ("product" in validated_data.keys()):
+            unitary_price = validated_data["product"].product.unitary_price
+            recalculate_rentability = True
+        else:
+            unitary_price = instance.product.unitary_price
+
+        if (recalculate_rentability):
+            rentability = unitary_price_sell / unitary_price
+            validated_data["rentability"] = rentability
+
         return super().update(instance, validated_data)
 
     def validate_multiplier(self, data):
         """Check if the quantity is a multiple of the product multiplier"""
-        product_id = self.initial_data['product']
-        try:
-            product = models.Product.objects.get(pk=product_id)
-        except models.Product.DoesNotExist:
-            raise serializers.ValidationError(
-                {"product_id": _(f'Product (pk={product_id}) not found.')})
-        multiplier = product.multiplier
-        if data["quantity"] % multiplier != 0:
-            raise serializers.ValidationError(
-                {"quantity": _(f'Quantity must be a multiple of {multiplier}.')})
+        if ("quantity" in data.keys()):
+            if ("product" in data.keys()):
+                product_id = data['product'].id
+            elif (self.instance):
+                product_id = self.instance.product.id
+            else:
+                product_id = 0
+
+            try:
+                product = models.Product.objects.get(pk=product_id)
+            except models.Product.DoesNotExist:
+                raise serializers.ValidationError(
+                    {"product_id": _(f'Product (pk={product_id}) not found.')})
+            multiplier = product.multiplier
+            if data["quantity"] % multiplier != 0:
+                raise serializers.ValidationError(
+                    {"quantity": _(f'Quantity must be a multiple of {multiplier}.')})
 
     def validate_inventory(self, data):
         """Check if the product has inventory for the order"""
-        product_id = self.initial_data['product']
-        try:
-            product = models.Product.objects.get(pk=product_id)
-        except models.Product.DoesNotExist:
-            raise serializers.ValidationError(
-                {"product_id": _(f'Product (pk={product_id}) not found.')})
+        if ("quantity" in data.keys()):
+            if ("product" in data.keys()):
+                product_id = data['product'].id
+            elif (self.instance):
+                product_id = self.instance.product.id
+            else:
+                product_id = 0
 
-        if (not product.allow_oversell) and (product.remain < data["quantity"]):
-            raise serializers.ValidationError(
-                {"quantity": _(f'Quantity must be less than the inventory ({product.remain}).')})
+            try:
+                product = models.Product.objects.get(pk=product_id)
+            except models.Product.DoesNotExist:
+                raise serializers.ValidationError(
+                    {"product_id": _(f'Product (pk={product_id}) not found.')})
+
+            if (not product.allow_oversell) and (product.remain < data["quantity"]):
+                raise serializers.ValidationError(
+                    {"quantity": _(f'Quantity must be less than the inventory ({product.remain}).')})
 
     def validate_price(self, data):
         """Check if the product has rentability above the threshold"""
-        product_id = self.initial_data['product']
-        try:
-            product = models.Product.objects.get(pk=product_id)
-        except models.Product.DoesNotExist:
-            raise serializers.ValidationError(
-                {"product_id": _(f'Product (pk={product_id}) not found.')})
+        if ("unitary_price_sell" in data.keys()):
+            if ("product" in data.keys()):
+                product_id = data['product'].id
+            elif (self.instance):
+                product_id = self.instance.product.id
+            else:
+                product_id = 0
 
-        if (settings.PRICE_THRESHOLD > data["unitary_price_sell"]/product.unitary_price):
-            raise serializers.ValidationError(
-                {"unitary_price_sell": _(f'Price must be above {product.unitary_price*settings.PRICE_THRESHOLD}.')})
+            try:
+                product = models.Product.objects.get(pk=product_id)
+            except models.Product.DoesNotExist:
+                raise serializers.ValidationError(
+                    {"product_id": _(f'Product (pk={product_id}) not found.')})
+
+            if (settings.PRICE_THRESHOLD > data["unitary_price_sell"]/product.unitary_price):
+                raise serializers.ValidationError(
+                    {"unitary_price_sell": _(
+                        f'Price must be above {product.unitary_price*settings.PRICE_THRESHOLD}.'
+                    )})
 
     def validate(self, data):
         self.validate_multiplier(data)

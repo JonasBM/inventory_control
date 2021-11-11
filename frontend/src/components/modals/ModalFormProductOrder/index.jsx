@@ -1,11 +1,9 @@
 import { HIDE_MODAL, SHOW_MODAL } from "../../../actions/actionTypes";
 
-import { ClientCRUDAction } from "../../../actions/api/client";
 import CommonModalFooter from "../CommonModalFooter";
 import { Form } from "react-final-form";
 import FormProductOrder from "./FormProductOrder";
 import { Modal } from "react-bootstrap";
-import { OrderCRUDAction } from "../../../actions/api/order";
 import { ProductCRUDAction } from "../../../actions/api/product";
 import { ProductOrderCRUDAction } from "../../../actions/api/productorder";
 import React from "react";

@@ -1,11 +1,6 @@
 import { Button, Table } from "react-bootstrap";
 import { destroyOrder, handleShow } from "../../modals/ModalFormOrder";
-import {
-  formatCurrency,
-  getClientByID,
-  getSellerByID,
-  removeAccents,
-} from "../../../utils";
+import { formatCurrency, removeAccents } from "../../../utils";
 
 import React from "react";
 import moment from "moment";

@@ -1,12 +1,11 @@
 import { Image, Row } from "react-bootstrap";
-import React, { Fragment, useEffect, useLayoutEffect, useState } from "react";
-import { useForm, useFormState } from "react-final-form";
+import React, { Fragment } from "react";
 
 import { InputForm } from "../../common/forms/Input";
 import { SelectForm } from "../../common/forms/Select";
 import { formatCurrency } from "../../../utils";
-import i18next from "i18next";
 import { useAppSelector } from "../../../hooks";
+import { useFormState } from "react-final-form";
 import { useTranslation } from "react-i18next";
 
 const ImagePreview = ({ imagePreview }) => {

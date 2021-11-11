@@ -1,5 +1,6 @@
-import axios from "axios";
 import "./index.css";
+
+import axios from "axios";
 
 const noLoading = ["thiswontloadindicator/"];
 

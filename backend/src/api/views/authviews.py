@@ -1,12 +1,11 @@
+from api import serializers
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from knox.views import LoginView as KnoxLoginView
 from knox.auth import TokenAuthentication
+from knox.views import LoginView as KnoxLoginView
 from rest_framework import generics, permissions, status
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.response import Response
-
-from api import serializers
 
 
 class LoginView(KnoxLoginView):

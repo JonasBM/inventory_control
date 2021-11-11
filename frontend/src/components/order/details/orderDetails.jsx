@@ -1,13 +1,9 @@
 import { Button, Col, Row } from "react-bootstrap";
-import {
-  CheckboxForm,
-  CheckboxToogleButton,
-} from "../../common/forms/Checkbox";
-import { Form, useFormState } from "react-final-form";
-import React, { useEffect, useState } from "react";
 
+import { Form } from "react-final-form";
 import FormOrder from "../../modals/ModalFormOrder/FormOrder";
 import { OrderCRUDAction } from "../../../actions/api/order";
+import React from "react";
 import { destroyOrder } from "../../modals/ModalFormOrder";
 import { formatCurrency } from "../../../utils";
 import { useAppSelector } from "../../../hooks";

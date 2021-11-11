@@ -1,4 +1,4 @@
-import { Button, Col, FormControl, InputGroup, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 import React from "react";
 import { handleShow } from "../modals/ModalFormInventory";

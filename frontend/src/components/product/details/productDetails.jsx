@@ -1,10 +1,9 @@
 import { Button, Col, Row } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
 
 import { Form } from "react-final-form";
-import FormInventory from "../../modals/ModalFormInventory/FormInventory";
 import FormProduct from "../../modals/ModalFormProduct/FormProduct";
 import { ProductCRUDAction } from "../../../actions/api/product";
+import React from "react";
 import { destroyProduct } from "../../modals/ModalFormProduct";
 import { useAppSelector } from "../../../hooks";
 import { useDispatch } from "react-redux";

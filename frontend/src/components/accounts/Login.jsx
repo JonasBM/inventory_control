@@ -1,6 +1,5 @@
 import { Button, Col, Container, Form as FormBS, Row } from "react-bootstrap";
 
-import { ClientCRUDAction } from "../../actions/api/client";
 import { Form } from "react-final-form";
 import { InputFormFloat } from "../common/forms/Input";
 import React from "react";

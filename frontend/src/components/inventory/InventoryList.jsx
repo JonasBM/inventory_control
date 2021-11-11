@@ -1,5 +1,5 @@
-import { Button, Collapse, Fade, Table } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import { Button, Fade, Table } from "react-bootstrap";
+import React, { useState } from "react";
 import { destroyInventory, handleShow } from "../modals/ModalFormInventory";
 
 import moment from "moment";
@@ -9,9 +9,6 @@ import { useTranslation } from "react-i18next";
 const InventoryList = ({ product_id }) => {
   const { t } = useTranslation();
   const inventory = useAppSelector((state) => state.inventory);
-  const product = useAppSelector((state) =>
-    state.products.find((el) => el.id.toString() === product_id)
-  );
   const [open, setOpen] = useState(true);
   return (
     <Table striped bordered hover size="sm" className="px-lg-5">

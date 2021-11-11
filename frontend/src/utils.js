@@ -74,21 +74,6 @@ export function getInventoryByID(id) {
   return null;
 }
 
-export function formatDateTime(date) {
-  //2018-06-12T19:30
-  return (
-    date.getFullYear() +
-    "-" +
-    ("0" + (date.getMonth() + 1)).slice(-2) +
-    "-" +
-    ("0" + date.getDate()).slice(-2) +
-    "T" +
-    ("0" + date.getHours()).slice(-2) +
-    ":" +
-    ("0" + date.getMinutes()).slice(-2)
-  );
-}
-
 export function serialize(object) {
   var str = [];
   for (const key in object)

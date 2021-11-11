@@ -1,6 +1,7 @@
-import factory
-from django.contrib.auth.models import User
 from api import models
+from django.contrib.auth.models import User
+
+import factory
 
 
 class SellerFactory(factory.django.DjangoModelFactory):
@@ -28,7 +29,7 @@ class ProducFactory(factory.django.DjangoModelFactory):
 
     name = factory.Sequence(lambda n: 'name%s' % n)
     unitary_price = factory.Sequence(lambda n: n*100)
-    multiplier = factory.Sequence(lambda n: n)
+    multiplier = factory.Sequence(lambda n: n*10)
     allow_oversell = True
 
 

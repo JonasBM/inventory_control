@@ -1,22 +1,17 @@
-import { Button, Collapse, Fade, Image, Table } from "react-bootstrap";
-import React, { useEffect, useState } from "react";
+import { Button, Image, Table } from "react-bootstrap";
 import {
   destroyProductOrder,
   handleShow,
 } from "../modals/ModalFormProductOrder";
 
+import React from "react";
 import { formatCurrency } from "../../utils";
-import moment from "moment";
 import { useAppSelector } from "../../hooks";
 import { useTranslation } from "react-i18next";
 
 const InventoryList = ({ order_id }) => {
   const { t } = useTranslation();
-  const config = useAppSelector((state) => state.config);
   const productorders = useAppSelector((state) => state.productorders);
-  const order = useAppSelector((state) =>
-    state.orders.find((el) => el.id.toString() === order_id)
-  );
   const products = useAppSelector((state) => state.products);
   return (
     <Table striped bordered hover size="sm" className="px-lg-5">
