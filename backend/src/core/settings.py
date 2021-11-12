@@ -178,8 +178,8 @@ USE_TZ = True
 STATIC_URL = "api/static/static/"
 MEDIA_URL = "api/static/media/"
 
-STATIC_ROOT = "static/static/"
-MEDIA_ROOT = "static/media/"
+STATIC_ROOT = "/static/static/"
+MEDIA_ROOT = "/static/media/"
 
 
 # Default primary key field type
