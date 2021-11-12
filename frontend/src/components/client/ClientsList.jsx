@@ -1,9 +1,9 @@
 import { Button, Table } from "react-bootstrap";
-import { destroyClient, handleShow } from "../modals/ModalFormClient";
+import { destroyClient, handleShow } from "components/modals/ModalFormClient";
 
 import React from "react";
-import { removeAccents } from "../../utils";
-import { useAppSelector } from "../../hooks";
+import { removeAccents } from "utils";
+import { useAppSelector } from "hooks";
 import { useTranslation } from "react-i18next";
 
 const ClientsList = ({ filter }) => {

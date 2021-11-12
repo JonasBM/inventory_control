@@ -1,12 +1,12 @@
 import { Col, Row } from "react-bootstrap";
 import React, { useEffect } from "react";
 
-import { ClientCRUDAction } from "../../../actions/api/client";
-import { OrderCRUDAction } from "../../../actions/api/order";
-import OrderDetails from "./orderDetails";
-import ProductOrder from "../../productorder";
-import { UserRetrieveUpdateAction } from "../../../actions/accounts/user";
-import store from "../../../store";
+import { ClientCRUDAction } from "actions/api/client";
+import { OrderCRUDAction } from "actions/api/order";
+import OrderDetails from "components/order/details";
+import ProductOrder from "components/productorder";
+import { UserRetrieveUpdateAction } from "actions/accounts/user";
+import store from "store";
 import { useParams } from "react-router-dom";
 
 export const updateDetails = (order_id) => {

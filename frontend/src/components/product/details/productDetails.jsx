@@ -1,11 +1,11 @@
 import { Button, Col, Row } from "react-bootstrap";
 
 import { Form } from "react-final-form";
-import FormProduct from "../../modals/ModalFormProduct/FormProduct";
-import { ProductCRUDAction } from "../../../actions/api/product";
+import FormProduct from "components/modals/ModalFormProduct/FormProduct";
+import { ProductCRUDAction } from "actions/api/product";
 import React from "react";
-import { destroyProduct } from "../../modals/ModalFormProduct";
-import { useAppSelector } from "../../../hooks";
+import { destroyProduct } from "components/modals/ModalFormProduct";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";

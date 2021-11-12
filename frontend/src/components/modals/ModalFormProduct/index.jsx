@@ -1,20 +1,22 @@
-import { HIDE_MODAL, SHOW_MODAL } from "../../../actions/actionTypes";
+import { HIDE_MODAL, SHOW_MODAL } from "actions/actionTypes";
 
-import CommonModalFooter from "../CommonModalFooter";
+import CommonModalFooter from "components/modals/CommonModalFooter";
 import { Form } from "react-final-form";
-import FormProduct from "./FormProduct";
+import FormProduct from "components/modals/ModalFormProduct/FormProduct";
 import { Modal } from "react-bootstrap";
-import { ProductCRUDAction } from "../../../actions/api/product";
+import { ProductCRUDAction } from "actions/api/product";
 import React from "react";
 import i18next from "i18next";
-import store from "../../../store";
-import { useAppSelector } from "../../../hooks";
+import store from "store";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 const modalType = "MODAL_PRODUCT";
 
-export const handleShow = (_modalProps = { id: 0, name: "" }) => {
+export const handleShow = (
+  _modalProps = { id: 0, name: "", multiplier: 1 }
+) => {
   store.dispatch({
     type: SHOW_MODAL,
     modalType: modalType,

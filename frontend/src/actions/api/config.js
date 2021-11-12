@@ -1,7 +1,7 @@
-import { GET_CONFIG } from "../actionTypes";
+import { GET_CONFIG } from "actions/actionTypes";
 import axios from "axios";
-import { returnErrors } from "../actionMessages";
-import { tokenConfig } from "../actionUtils";
+import { returnErrors } from "actions/actionMessages";
+import { tokenConfig } from "actions/actionUtils";
 
 export const getConfig = () => (dispatch, getState) => {
   return axios

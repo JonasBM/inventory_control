@@ -1,15 +1,15 @@
-import { HIDE_MODAL, SHOW_MODAL } from "../../../actions/actionTypes";
+import { HIDE_MODAL, SHOW_MODAL } from "actions/actionTypes";
 
-import CommonModalFooter from "../CommonModalFooter";
+import CommonModalFooter from "components/modals/CommonModalFooter";
 import { Form } from "react-final-form";
-import FormInventory from "./FormInventory";
-import { InventoryCRUDAction } from "../../../actions/api/inventory";
+import FormInventory from "components/modals/ModalFormInventory/FormInventory";
+import { InventoryCRUDAction } from "actions/api/inventory";
 import { Modal } from "react-bootstrap";
-import { ProductCRUDAction } from "../../../actions/api/product";
+import { ProductCRUDAction } from "actions/api/product";
 import React from "react";
 import i18next from "i18next";
-import store from "../../../store";
-import { useAppSelector } from "../../../hooks";
+import store from "store";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 

@@ -1,12 +1,12 @@
 import { Col, Container, Row } from "react-bootstrap";
 
-import { ClientCRUDAction } from "../../actions/api/client";
-import ClientsList from "./ClientsList";
+import { ClientCRUDAction } from "actions/api/client";
+import ClientsList from "components/client/ClientsList";
 import React from "react";
-import Toolbar from "./Toolbar";
-import store from "../../store";
+import Toolbar from "components/client/Toolbar";
+import store from "store";
 import { useEffect } from "react";
-import { useInput } from "../../hooks";
+import { useInput } from "hooks";
 
 export const updateList = (searchParams) => {
   store.dispatch(ClientCRUDAction.list(searchParams));

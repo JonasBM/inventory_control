@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 
 import { Row } from "react-bootstrap";
-import { SelectForm } from "../../common/forms/Select";
-import { useAppSelector } from "../../../hooks";
+import { SelectForm } from "components/common/forms/Select";
+import { useAppSelector } from "hooks";
 import { useTranslation } from "react-i18next";
 
 const FormOrder = () => {

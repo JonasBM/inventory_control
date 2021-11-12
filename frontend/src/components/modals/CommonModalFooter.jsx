@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
 import { Button } from "react-bootstrap";
-import { CheckboxForm } from "../common/forms/Checkbox";
+import { CheckboxForm } from "components/common/forms/Checkbox";
 import { useTranslation } from "react-i18next";
 
 const CommonModalFooter = ({

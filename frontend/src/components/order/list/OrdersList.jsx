@@ -1,10 +1,10 @@
 import { Button, Table } from "react-bootstrap";
-import { destroyOrder, handleShow } from "../../modals/ModalFormOrder";
-import { formatCurrency, removeAccents } from "../../../utils";
+import { destroyOrder, handleShow } from "components/modals/ModalFormOrder";
+import { formatCurrency, removeAccents } from "utils";
 
 import React from "react";
 import moment from "moment";
-import { useAppSelector } from "../../../hooks";
+import { useAppSelector } from "hooks";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

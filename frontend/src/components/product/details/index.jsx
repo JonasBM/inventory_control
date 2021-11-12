@@ -1,10 +1,10 @@
 import { Col, Row } from "react-bootstrap";
 import React, { useEffect } from "react";
 
-import Inventory from "../../inventory";
-import { ProductCRUDAction } from "../../../actions/api/product";
-import ProductDetails from "./productDetails";
-import store from "../../../store";
+import Inventory from "components/inventory";
+import { ProductCRUDAction } from "actions/api/product";
+import ProductDetails from "components/product/details/productDetails";
+import store from "store";
 import { useParams } from "react-router-dom";
 
 export const updateDetails = (product_id) => {

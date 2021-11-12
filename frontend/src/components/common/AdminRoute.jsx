@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import Loading from "./Loading";
-import NotAutorized from "./NotAutorized";
-import { tryLoadUser } from "../../actions/accounts/auth";
-import { useAppSelector } from "../../hooks";
+import Loading from "components/common/Loading";
+import NotAutorized from "components/common/NotAutorized";
+import { tryLoadUser } from "actions/accounts/auth";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 
 const AdminRoute = ({ component: Component, ...rest }) => {

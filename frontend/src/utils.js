@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import store from "./store";
+import store from "store";
 
 export function applyMixins(derivedCtor, baseCtors) {
   for (let i = 0, len = baseCtors.length; i < len; i++) {

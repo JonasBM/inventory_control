@@ -5,11 +5,11 @@ import {
   LOGOUT_SUCCESS,
   USER_LOADED,
   USER_LOADING,
-} from "../actionTypes";
-import { createMessage, returnErrors } from "../actionMessages";
+} from "actions/actionTypes";
+import { createMessage, returnErrors } from "actions/actionMessages";
 
 import axios from "axios";
-import { tokenConfig } from "../actionUtils";
+import { tokenConfig } from "actions/actionUtils";
 
 //CHECK TOKEN & LOAD USER
 export const tryLoadUser = () => (dispatch, getState) => {

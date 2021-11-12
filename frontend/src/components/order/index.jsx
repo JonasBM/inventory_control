@@ -1,8 +1,8 @@
 import { Route, Switch } from "react-router-dom";
 
 import { Container } from "react-bootstrap";
-import OrderDetails from "./details";
-import OrderList from "./list";
+import OrderDetails from "components/order/details";
+import OrderList from "components/order/list";
 import React from "react";
 
 const Product = () => {

@@ -1,9 +1,9 @@
 import { Button, Col, Container, Form as FormBS, Row } from "react-bootstrap";
 
 import { Form } from "react-final-form";
-import { InputFormFloat } from "../common/forms/Input";
+import { InputFormFloat } from "components/common/forms/Input";
 import React from "react";
-import { authLogin } from "../../actions/accounts/auth";
+import { authLogin } from "actions/accounts/auth";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";

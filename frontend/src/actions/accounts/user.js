@@ -1,4 +1,4 @@
-import { CRUDAction, ReadOnlyAction, UpdateAction } from "../generics";
+import { CRUDAction, ReadOnlyAction, UpdateAction } from "actions/generics";
 
 export const UserProfileCRUDAction = new CRUDAction(
   "userprofile",

@@ -1,10 +1,10 @@
-import Reducer from "./Reducer";
-import accounts from "./accounts/index.js";
+import Reducer from "reducers/Reducer";
+import accounts from "reducers/accounts";
 import { combineReducers } from "redux";
-import config from "./config";
-import errors from "./errors";
-import messages from "./messages";
-import modal from "./modal";
+import config from "reducers/config";
+import errors from "reducers/errors";
+import messages from "reducers/messages";
+import modal from "reducers/modal";
 
 export default combineReducers({
   accounts,

@@ -1,7 +1,7 @@
 import { Button, Col, FormControl, InputGroup, Row } from "react-bootstrap";
 
 import React from "react";
-import { handleShow } from "../../modals/ModalFormProduct";
+import { handleShow } from "components/modals/ModalFormProduct";
 import { useTranslation } from "react-i18next";
 
 const Toolbar = ({ bindFilter, resetFilter }) => {

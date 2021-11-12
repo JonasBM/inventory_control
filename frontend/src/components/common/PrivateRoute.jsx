@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import Loading from "./Loading";
-import { tryLoadUser } from "../../actions/accounts/auth";
-import { useAppSelector } from "../../hooks";
+import Loading from "components/common/Loading";
+import { tryLoadUser } from "actions/accounts/auth";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

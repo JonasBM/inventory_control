@@ -1,4 +1,4 @@
-import { CRUDAction } from "../generics";
+import { CRUDAction } from "actions/generics";
 
 export const ProductCRUDAction = new CRUDAction(
   "product",

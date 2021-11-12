@@ -1,4 +1,4 @@
-import { GET_CONFIG } from "../actions/actionTypes";
+import { GET_CONFIG } from "actions/actionTypes";
 
 const initialState = {};
 

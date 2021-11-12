@@ -5,9 +5,9 @@ import {
   ListMixin,
   RetrieveMixin,
   UpdateMixin,
-} from "./mixins";
+} from "actions/generics/mixins";
 
-import { applyMixins } from "../../utils";
+import { applyMixins } from "utils";
 
 export class GenericAction extends BaseMixin {}
 export class ListAction extends ListMixin {}

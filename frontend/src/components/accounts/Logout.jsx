@@ -1,5 +1,5 @@
 import React from "react";
-import { authLogout } from "../../actions/accounts/auth";
+import { authLogout } from "actions/accounts/auth";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 

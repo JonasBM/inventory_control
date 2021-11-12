@@ -1,9 +1,12 @@
 import { Button, Fade, Table } from "react-bootstrap";
 import React, { useState } from "react";
-import { destroyInventory, handleShow } from "../modals/ModalFormInventory";
+import {
+  destroyInventory,
+  handleShow,
+} from "components/modals/ModalFormInventory";
 
 import moment from "moment";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "hooks";
 import { useTranslation } from "react-i18next";
 
 const InventoryList = ({ product_id }) => {

@@ -1,4 +1,4 @@
-import "./index.css";
+import "loadInterceptor/index.css";
 
 import axios from "axios";
 

@@ -1,7 +1,7 @@
 import { Button, Col, Row } from "react-bootstrap";
 
 import React from "react";
-import { handleShow } from "../modals/ModalFormProductOrder";
+import { handleShow } from "components/modals/ModalFormProductOrder";
 import { useTranslation } from "react-i18next";
 
 const Toolbar = ({ order_id }) => {

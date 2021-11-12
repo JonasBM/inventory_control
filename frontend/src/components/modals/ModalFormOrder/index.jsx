@@ -1,16 +1,16 @@
-import { HIDE_MODAL, SHOW_MODAL } from "../../../actions/actionTypes";
+import { HIDE_MODAL, SHOW_MODAL } from "actions/actionTypes";
 
-import { ClientCRUDAction } from "../../../actions/api/client";
-import CommonModalFooter from "../CommonModalFooter";
+import { ClientCRUDAction } from "actions/api/client";
+import CommonModalFooter from "components/modals/CommonModalFooter";
 import { Form } from "react-final-form";
-import FormOrder from "./FormOrder";
+import FormOrder from "components/modals/ModalFormOrder/FormOrder";
 import { Modal } from "react-bootstrap";
-import { OrderCRUDAction } from "../../../actions/api/order";
-import { ProductCRUDAction } from "../../../actions/api/product";
+import { OrderCRUDAction } from "actions/api/order";
+import { ProductCRUDAction } from "actions/api/product";
 import React from "react";
 import i18next from "i18next";
-import store from "../../../store";
-import { useAppSelector } from "../../../hooks";
+import store from "store";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";

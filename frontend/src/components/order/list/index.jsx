@@ -1,14 +1,14 @@
 import { Col, Row } from "react-bootstrap";
 
-import { ClientCRUDAction } from "../../../actions/api/client";
-import { OrderCRUDAction } from "../../../actions/api/order";
-import OrdersList from "./OrdersList";
+import { ClientCRUDAction } from "actions/api/client";
+import { OrderCRUDAction } from "actions/api/order";
+import OrdersList from "components/order/list/OrdersList";
 import React from "react";
-import Toolbar from "./Toolbar";
-import { UserRetrieveUpdateAction } from "../../../actions/accounts/user";
-import store from "../../../store";
+import Toolbar from "components/order/list/Toolbar";
+import { UserRetrieveUpdateAction } from "actions/accounts/user";
+import store from "store";
 import { useEffect } from "react";
-import { useInput } from "../../../hooks";
+import { useInput } from "hooks";
 
 export const updateList = (searchParams) => {
   store.dispatch(OrderCRUDAction.list(searchParams));

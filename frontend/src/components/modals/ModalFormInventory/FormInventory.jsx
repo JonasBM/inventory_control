@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import { InputForm } from "../../common/forms/Input";
+import { InputForm } from "components/common/forms/Input";
 import { Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +18,7 @@ const FormInventory = () => {
           classNameLabel="mb-0"
           label={t("Quantity") + ":"}
           placeholder={t("0")}
+          required
         />
       </Row>
     </Fragment>

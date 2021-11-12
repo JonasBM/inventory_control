@@ -1,10 +1,10 @@
 import { Col, Row } from "react-bootstrap";
 
-import { InventoryCRUDAction } from "../../actions/api/inventory";
-import InventoryList from "./InventoryList";
+import { InventoryCRUDAction } from "actions/api/inventory";
+import InventoryList from "components/inventory/InventoryList";
 import React from "react";
-import Toolbar from "./Toolbar";
-import store from "../../store";
+import Toolbar from "components/inventory/Toolbar";
+import store from "store";
 import { useEffect } from "react";
 
 export const updateList = (product_id) => {

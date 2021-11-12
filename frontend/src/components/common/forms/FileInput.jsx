@@ -1,5 +1,8 @@
 import { Button, Col, Form, Image, Row } from "react-bootstrap";
-import { Error, required as requiredRFF } from "./formUtils";
+import {
+  Error,
+  required as requiredRFF,
+} from "components/common/forms/formUtils";
 import React, { useEffect, useRef, useState } from "react";
 
 import { Field } from "react-final-form";

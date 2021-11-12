@@ -1,12 +1,12 @@
 import { Col, Row } from "react-bootstrap";
 
-import { ProductCRUDAction } from "../../../actions/api/product";
-import ProductsList from "./ProductsList";
+import { ProductCRUDAction } from "actions/api/product";
+import ProductsList from "components/product/list/ProductsList";
 import React from "react";
-import Toolbar from "./Toolbar";
-import store from "../../../store";
+import Toolbar from "components/product/list/Toolbar";
+import store from "store";
 import { useEffect } from "react";
-import { useInput } from "../../../hooks";
+import { useInput } from "hooks";
 
 export const updateList = (searchParams) => {
   store.dispatch(ProductCRUDAction.list(searchParams));

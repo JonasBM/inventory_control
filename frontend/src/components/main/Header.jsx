@@ -8,11 +8,11 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import React, { useEffect } from "react";
 
-import { UserRetrieveUpdateAction } from "../../actions/accounts/user";
-import { getConfig } from "../../actions/api/config";
+import { UserRetrieveUpdateAction } from "actions/accounts/user";
+import { getConfig } from "actions/api/config";
 import i18next from "i18next";
 import moment from "moment";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 

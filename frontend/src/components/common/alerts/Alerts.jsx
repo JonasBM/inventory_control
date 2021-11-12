@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { useAppSelector, usePrevious } from "../../../hooks";
+import { useAppSelector, usePrevious } from "hooks";
 
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";

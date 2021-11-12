@@ -1,12 +1,12 @@
 import { Button, Col, Row } from "react-bootstrap";
 
 import { Form } from "react-final-form";
-import FormOrder from "../../modals/ModalFormOrder/FormOrder";
-import { OrderCRUDAction } from "../../../actions/api/order";
+import FormOrder from "components/modals/ModalFormOrder/FormOrder";
+import { OrderCRUDAction } from "actions/api/order";
 import React from "react";
-import { destroyOrder } from "../../modals/ModalFormOrder";
-import { formatCurrency } from "../../../utils";
-import { useAppSelector } from "../../../hooks";
+import { destroyOrder } from "components/modals/ModalFormOrder";
+import { formatCurrency } from "utils";
+import { useAppSelector } from "hooks";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";

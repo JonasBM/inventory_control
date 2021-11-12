@@ -1,8 +1,8 @@
 import { Button, Col, FormControl, InputGroup, Row } from "react-bootstrap";
 
 import React from "react";
-import { handleShow } from "../../modals/ModalFormOrder";
-import { useAppSelector } from "../../../hooks";
+import { handleShow } from "components/modals/ModalFormOrder";
+import { useAppSelector } from "hooks";
 import { useTranslation } from "react-i18next";
 
 const Toolbar = ({ bindFilter, resetFilter }) => {
@@ -19,8 +19,8 @@ const Toolbar = ({ bindFilter, resetFilter }) => {
           onClick={() => {
             handleShow({
               id: 0,
-              seller: authUser.id,
-              client: "",
+              seller: authUser?.id ? authUser.id : 0,
+              client: 0,
               opened: true,
             });
           }}

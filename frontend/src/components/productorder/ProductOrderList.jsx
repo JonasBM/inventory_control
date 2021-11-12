@@ -2,11 +2,11 @@ import { Button, Image, Table } from "react-bootstrap";
 import {
   destroyProductOrder,
   handleShow,
-} from "../modals/ModalFormProductOrder";
+} from "components/modals/ModalFormProductOrder";
 
 import React from "react";
-import { formatCurrency } from "../../utils";
-import { useAppSelector } from "../../hooks";
+import { formatCurrency } from "utils";
+import { useAppSelector } from "hooks";
 import { useTranslation } from "react-i18next";
 
 const InventoryList = ({ order_id }) => {
@@ -22,12 +22,6 @@ const InventoryList = ({ order_id }) => {
       >
         {t("Products in Order")}
       </caption>
-      {/* product
-    order
-    unitary_price_sell
-    quantity
-    rentability  */}
-
       <thead>
         <tr>
           <th className="text-center d-none d-lg-table-cell"></th>

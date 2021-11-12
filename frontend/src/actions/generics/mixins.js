@@ -1,7 +1,7 @@
-import { formatData, tokenConfig } from "../actionUtils";
+import { formatData, tokenConfig } from "actions/actionUtils";
 
 import axios from "axios";
-import { returnErrors } from "../actionMessages";
+import { returnErrors } from "actions/actionMessages";
 
 var names = [];
 

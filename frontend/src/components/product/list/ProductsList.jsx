@@ -1,10 +1,10 @@
 import { Button, Image, Table } from "react-bootstrap";
-import { destroyProduct, handleShow } from "../../modals/ModalFormProduct";
-import { formatCurrency, removeAccents } from "../../../utils";
+import { destroyProduct, handleShow } from "components/modals/ModalFormProduct";
+import { formatCurrency, removeAccents } from "utils";
 
 import React from "react";
-import { handleShow as handleShowInventory } from "../../modals/ModalFormInventory";
-import { useAppSelector } from "../../../hooks";
+import { handleShow as handleShowInventory } from "components/modals/ModalFormInventory";
+import { useAppSelector } from "hooks";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

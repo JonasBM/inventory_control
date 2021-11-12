@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 
-import { CheckboxForm } from "../../common/forms/Checkbox";
-import { InputForm } from "../../common/forms/Input";
-import { InputImagePreview } from "../../common/forms/FileInput";
+import { CheckboxForm } from "components/common/forms/Checkbox";
+import { InputForm } from "components/common/forms/Input";
+import { InputImagePreview } from "components/common/forms/FileInput";
 import { Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
@@ -26,6 +26,7 @@ const FormProduct = () => {
           classNameLabel="mb-0"
           label={t("Name") + ":"}
           placeholder={t("Name")}
+          required
         />
       </Row>
 
@@ -39,6 +40,7 @@ const FormProduct = () => {
           classNameLabel="mb-0"
           label={t("Unitary Price") + ":"}
           placeholder={t("0,00")}
+          required
         />
       </Row>
 
@@ -52,6 +54,7 @@ const FormProduct = () => {
           classNameLabel="mb-0"
           label={t("Stack Size") + ":"}
           placeholder={t("0")}
+          required
         />
       </Row>
 

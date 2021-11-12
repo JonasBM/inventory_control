@@ -1,4 +1,7 @@
-import { Error, required as requiredRFF } from "./formUtils";
+import {
+  Error,
+  required as requiredRFF,
+} from "components/common/forms/formUtils";
 import { Form, FormControl, InputGroup } from "react-bootstrap";
 import React, { useRef } from "react";
 

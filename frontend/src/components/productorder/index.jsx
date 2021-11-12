@@ -1,11 +1,11 @@
 import { Col, Row } from "react-bootstrap";
 
-import { ProductCRUDAction } from "../../actions/api/product";
-import { ProductOrderCRUDAction } from "../../actions/api/productorder";
-import ProductOrderList from "./ProductOrderList";
+import { ProductCRUDAction } from "actions/api/product";
+import { ProductOrderCRUDAction } from "actions/api/productorder";
+import ProductOrderList from "components/productorder/ProductOrderList";
 import React from "react";
-import Toolbar from "./Toolbar";
-import store from "../../store";
+import Toolbar from "components/productorder/Toolbar";
+import store from "store";
 import { useEffect } from "react";
 
 export const updateList = (order_id) => {

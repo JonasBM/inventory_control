@@ -1,10 +1,10 @@
 import { Image, Row } from "react-bootstrap";
 import React, { Fragment } from "react";
 
-import { InputForm } from "../../common/forms/Input";
-import { SelectForm } from "../../common/forms/Select";
-import { formatCurrency } from "../../../utils";
-import { useAppSelector } from "../../../hooks";
+import { InputForm } from "components/common/forms/Input";
+import { SelectForm } from "components/common/forms/Select";
+import { formatCurrency } from "utils";
+import { useAppSelector } from "hooks";
 import { useFormState } from "react-final-form";
 import { useTranslation } from "react-i18next";
 
@@ -140,6 +140,7 @@ const FormProductOrder = () => {
           classNameLabel="mb-0"
           label={t("Product") + ":"}
           placeholder={t("Product")}
+          required
         >
           <option value="">---------</option>
           {products.map((product, index) => (
@@ -194,6 +195,7 @@ const FormProductOrder = () => {
             "):"
           }
           placeholder={t("0.00")}
+          required
         />
       </Row>
       <Row className="mb-2">
@@ -217,6 +219,7 @@ const FormProductOrder = () => {
             "):"
           }
           placeholder={t("0")}
+          required
         />
       </Row>
       <Row className="mb-2">

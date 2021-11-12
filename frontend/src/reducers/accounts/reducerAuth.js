@@ -6,7 +6,7 @@ import {
   UPDATE_USERPROFILE,
   USER_LOADED,
   USER_LOADING,
-} from "../../actions/actionTypes";
+} from "actions/actionTypes";
 
 const initialState = {
   token: localStorage.getItem("token"),
