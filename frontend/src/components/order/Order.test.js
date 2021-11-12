@@ -5,7 +5,6 @@ import OrderDetails from "components/order/details";
 import OrderList from "components/order/list";
 import React from "react";
 import { renderWithReduxRouter } from "test-utils";
-import store from "store";
 
 test("OrderList should render", () => {
   renderWithReduxRouter(<OrderList />);

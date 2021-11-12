@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 import { ClientCRUDAction } from "actions/api/client";
 import { OrderCRUDAction } from "actions/api/order";
-import OrderDetails from "components/order/details";
+import OrderDetails from "components/order/details/orderDetails";
 import ProductOrder from "components/productorder";
 import { UserRetrieveUpdateAction } from "actions/accounts/user";
 import store from "store";
