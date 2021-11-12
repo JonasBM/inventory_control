@@ -14,4 +14,4 @@ Webserver to host the frontend build and api staticfiles.
 
 ## Example app
 
-To access to the [example app](https://inventory.calculoengenharia.com.br/), please contact me via email: contato@jonasbm.com.br
+To access to the [example app](https://mercos.calculoengenharia.com.br/), please contact me via email: contato@jonasbm.com.br
