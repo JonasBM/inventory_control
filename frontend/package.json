@@ -28,7 +28,9 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.0",
     "translation-check": "^1.0.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "immer": ">=9.0.6",
+    "set-value": ">=4.0.1"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
