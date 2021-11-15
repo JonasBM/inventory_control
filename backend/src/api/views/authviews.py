@@ -8,11 +8,21 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.response import Response
 
 
+class BasicAuthenticationNoHeader(BasicAuthentication):
+    """
+    Override BasicAuthentication www-authenticate header
+    To avoid login popup on 401
+    """
+
+    def authenticate_header(self, request):
+        return f'Token realm="{self.www_authenticate_realm}"'
+
+
 class LoginView(KnoxLoginView):
     """
     Override Knox Login view to allow for basic and token (knox) authentication
     """
-    authentication_classes = [BasicAuthentication, TokenAuthentication]
+    authentication_classes = [BasicAuthenticationNoHeader, TokenAuthentication]
 
 
 class ChangePasswordView(generics.UpdateAPIView):

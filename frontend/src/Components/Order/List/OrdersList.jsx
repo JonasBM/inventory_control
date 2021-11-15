@@ -52,13 +52,15 @@ const OrdersList = ({ filter, openOrders }) => {
               const client = clients.find((e) => e.id === order.client);
               return (
                 order.id.toString().includes(cleanFilter) |
-                removeAccents(seller.first_name.toLowerCase()).includes(
+                removeAccents(seller?.first_name.toLowerCase()).includes(
                   cleanerFilter
                 ) |
-                removeAccents(seller.last_name.toLowerCase()).includes(
+                removeAccents(seller?.last_name.toLowerCase()).includes(
                   cleanerFilter
                 ) |
-                removeAccents(client.name.toLowerCase()).includes(cleanerFilter)
+                removeAccents(client?.name.toLowerCase()).includes(
+                  cleanerFilter
+                )
               );
             })
             .map((order, index) => {

@@ -21,7 +21,11 @@ export function formatCurrency(value) {
 }
 
 export function removeAccents(str) {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  } else {
+    return "";
+  }
 }
 
 export function formatDate(date) {

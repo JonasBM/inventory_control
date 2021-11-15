@@ -120,8 +120,7 @@ class ProductOrder(models.Model):
 
     class Meta:
         ordering = ["order", "product", "id"]
-        models.UniqueConstraint(
-            fields=['order', 'product'], name='unique_product')
+        unique_together = ['order', 'product']
 
     def __str__(self):
         return (f'{str(self.order)} - {self.product}')
