@@ -4,6 +4,7 @@ import CommonModalFooter from "Components/Modals/CommonModalFooter";
 import { Form } from "react-final-form";
 import FormProductOrder from "Components/Modals/ModalFormProductOrder/FormProductOrder";
 import { Modal } from "react-bootstrap";
+import { OrderCRUDAction } from "actions/api/order";
 import { ProductCRUDAction } from "actions/api/product";
 import { ProductOrderCRUDAction } from "actions/api/productorder";
 import React from "react";
@@ -52,7 +53,7 @@ export const destroyProductOrder = (_productorder) => {
       store
         .dispatch(ProductOrderCRUDAction.destroy(_productorder.id))
         .then(() => {
-          store.dispatch(ProductCRUDAction.retrieve(_productorder.order));
+          store.dispatch(OrderCRUDAction.retrieve(_productorder.order));
         });
       return true;
     }
@@ -70,10 +71,14 @@ export default function ModalFormProductOrder() {
     let closeModal = false;
     if (values.id !== undefined) {
       if (values.id === 0) {
-        dispatch(ProductOrderCRUDAction.create(values));
+        dispatch(ProductOrderCRUDAction.create(values)).then(() => {
+          dispatch(OrderCRUDAction.retrieve(values.order));
+        });
         closeModal = true;
       } else {
-        dispatch(ProductOrderCRUDAction.update(values));
+        dispatch(ProductOrderCRUDAction.update(values)).then(() => {
+          dispatch(OrderCRUDAction.retrieve(values.order));
+        });
         closeModal = true;
       }
     }
