@@ -13,6 +13,7 @@ const InventoryList = ({ order_id }) => {
   const { t } = useTranslation();
   const productorders = useAppSelector((state) => state.productorders);
   const products = useAppSelector((state) => state.products);
+
   return (
     <Table striped bordered hover size="sm" className="px-lg-5">
       <caption
@@ -54,7 +55,7 @@ const InventoryList = ({ order_id }) => {
                 <td
                   className={
                     "text-end " +
-                    (productorder.rentability < 1
+                    (productorder.rentability <= 1
                       ? "text-warning"
                       : "text-success")
                   }

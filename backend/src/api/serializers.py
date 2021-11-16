@@ -101,7 +101,7 @@ class ProductOrderSerializer(serializers.ModelSerializer):
             unitary_price_sell = instance.unitary_price_sell
 
         if ("product" in validated_data.keys()):
-            unitary_price = validated_data["product"].product.unitary_price
+            unitary_price = validated_data["product"].unitary_price
             recalculate_rentability = True
         else:
             unitary_price = instance.product.unitary_price
