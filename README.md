@@ -4,6 +4,8 @@
 
 [Backend python project](backend), using django and django rest framework to build the api, connected with a postgresql database.
 
+For instructions on how to deploy the frontend or backend, click in the respective link above.
+
 ## Structure
 
 Postgresql database.
@@ -14,4 +16,4 @@ Webserver to host the frontend build and api staticfiles.
 
 ## Example app
 
-To access to the [example app](https://mercos.calculoengenharia.com.br/), please contact me via email: contato@jonasbm.com.br
+To access to the [example app](https://inventory.calculoengenharia.com.br/), please contact me via email: contato@jonasbm.com.br
